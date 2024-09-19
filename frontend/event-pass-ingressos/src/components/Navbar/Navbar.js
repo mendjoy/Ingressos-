@@ -35,7 +35,7 @@ const Navbar = () => {
                     <a href="#"><GrHomeRounded className="icon"/> Home</a>
                     <a href="#"><BsCalendar4Event className="icon"/> Eventos</a>
                     <a href="#"><IoTicketOutline className="icon"/> Ingressos</a>
-                    <a href="#"><FaRegUser className="icon"/> Login</a>
+                    <Link to="/login"><FaRegUser className="icon"/> Login</Link>
                 </nav>
             </div> 
         </div>

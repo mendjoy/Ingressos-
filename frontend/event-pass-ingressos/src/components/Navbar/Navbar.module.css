@@ -46,7 +46,7 @@
 }
 
 .searchContainer {
-    border:2px solid #003366; 
+    border: 1px solid #ccc;
     border-radius: 15px; 
     padding: 2px;
     width: 50%;
@@ -56,7 +56,7 @@
 
 .searchInput{
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     background-color: transparent;
 }
 
@@ -71,7 +71,7 @@
 }
 
 .searchIcon{
-    color:#003366;
+    color: #000000;
     font-size: 25px;
     background-color: transparent;
     padding: 3px;
