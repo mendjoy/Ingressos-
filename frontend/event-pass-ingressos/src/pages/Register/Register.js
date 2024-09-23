@@ -7,6 +7,7 @@ import styles from "../Login/Login.module.css";
 const Register = () => {
 
     const [name, setName] = useState('')
+    const [username, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const [birthDate, setBirthDate] = useState('')
     const [phone, setPhone] = useState('')
@@ -18,6 +19,7 @@ const Register = () => {
 
         const userData = {
             name,
+            username,
             email,
             birthDate,
             phone,
@@ -25,8 +27,6 @@ const Register = () => {
             confirmPassword,
         }
     
-
-        console.log(userData)
         try {
             const response = await fetch('http://localhost:8080/user/register', {
                 method: 'POST',
@@ -41,6 +41,7 @@ const Register = () => {
             }
 
             setName('')
+            setUsername('')
             setEmail('')
             setBirthDate('')
             setPhone('')
@@ -65,6 +66,11 @@ const Register = () => {
                            placeholder="Nome"
                            value={name} 
                            onChange={(e) => setName(e.target.value)}  />
+
+                    <input type="text" 
+                           placeholder="Nome de Usuario"
+                           value={username} 
+                           onChange={(e) => setUsername(e.target.value)} />
 
                     <input type="email" 
                            placeholder="E-mail"
