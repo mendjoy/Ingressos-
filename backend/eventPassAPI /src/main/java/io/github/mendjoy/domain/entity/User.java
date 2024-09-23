@@ -1,4 +1,4 @@
-package domain.entity;
+package io.github.mendjoy.domain.entity;
 
 import jakarta.persistence.*;
 
@@ -11,12 +11,21 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
     private String name;
+
+    private String username;
+
     private String email;
+
     private String password;
 
     @Column(name = "birth_date")
     private Date birthDate;
+
+    private String phone;
+
+    private Boolean admin;
 
     @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
@@ -25,12 +34,15 @@ public class User {
 
     }
 
-    public User(Integer id, String name, String email, String password, Date birthDate, LocalDateTime createdAt) {
+    public User(Integer id, String name, String username, String email, String password, Date birthDate, String phone, LocalDateTime createdAt, Boolean admin) {
         this.id = id;
         this.name = name;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.birthDate = birthDate;
+        this.phone = phone;
+        this.admin = admin;
         this.createdAt = createdAt;
     }
 
@@ -48,6 +60,14 @@ public class User {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public String getEmail() {
@@ -72,6 +92,22 @@ public class User {
 
     public void setBirthDate(Date birthDate) {
         this.birthDate = birthDate;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Boolean getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
     }
 
     public LocalDateTime getCreatedAt() {
