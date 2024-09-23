@@ -1,37 +1,22 @@
-package io.github.mendjoy.domain.entity;
+package io.github.mendjoy.dto;
 
-import jakarta.persistence.*;
-
-import java.time.LocalDateTime;
 import java.util.Date;
 
-@Entity
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class UserRegisterDTO {
     private String name;
-
     private String username;
-
     private String email;
-
-    @Column(name = "birth_date")
     private Date birthDate;
-
     private String phone;
-
     private Boolean admin;
-
     private String password;
+    private String confirmPassword;
 
-    public User() {
+    public UserRegisterDTO() {
 
     }
 
-    public User(String name, String username, String email, Date birthDate, String phone, Boolean admin, String password) {
+    public UserRegisterDTO(String name, String username, String email, Date birthDate, String phone, Boolean admin, String password, String confirmPassword) {
         this.name = name;
         this.username = username;
         this.email = email;
@@ -39,14 +24,7 @@ public class User {
         this.phone = phone;
         this.admin = admin;
         this.password = password;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
+        this.confirmPassword = confirmPassword;
     }
 
     public String getName() {
@@ -104,4 +82,9 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getConfirmPassword() {
+        return confirmPassword;
+    }
+
 }

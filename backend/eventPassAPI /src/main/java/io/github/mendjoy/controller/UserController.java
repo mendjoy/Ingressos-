@@ -1,22 +1,25 @@
-package controller;
+package io.github.mendjoy.controller;
 
+import io.github.mendjoy.domain.entity.User;
+import io.github.mendjoy.dto.UserRegisterDTO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import service.UserService;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+import io.github.mendjoy.service.UserService;
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public String getRoute() {
-        System.out.println("Teste: entrou no método GET");
-        return "ROTA OK"; // Esta mensagem deve aparecer quando você acessa a rota /user
+    @PostMapping("/register")
+    public ResponseEntity createUser(@RequestBody UserRegisterDTO userRegisterDTO) {
+        User user = userService.save(userRegisterDTO);
+        return ResponseEntity.status(HttpStatus.CREATED).body("Usuário cadastrado com sucesso!");
     }
 }
 
