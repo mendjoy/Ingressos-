@@ -1,6 +1,6 @@
 //css
 import  styles from "./Navbar.module.css";
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 
 //icons
 import { GrHomeRounded } from "react-icons/gr";
@@ -32,7 +32,7 @@ const Navbar = () => {
             
             <div>
                 <nav className={styles.navbarLinks}>
-                    <a href="#"><GrHomeRounded className="icon"/> Home</a>
+                    <Link to="/"><GrHomeRounded className="icon"/> Home</Link>
                     <a href="#"><BsCalendar4Event className="icon"/> Eventos</a>
                     <a href="#"><IoTicketOutline className="icon"/> Ingressos</a>
                     <Link to="/login"><FaRegUser className="icon"/> Login</Link>
