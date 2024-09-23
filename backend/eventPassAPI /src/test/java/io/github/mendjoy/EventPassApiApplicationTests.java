@@ -1,4 +1,4 @@
-package io.github.mendjoy.eventPassAPI;
+package io.github.mendjoy;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

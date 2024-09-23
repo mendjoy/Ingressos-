@@ -1,4 +1,4 @@
-package io.github.mendjoy.eventPassAPI;
+package io.github.mendjoy;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
