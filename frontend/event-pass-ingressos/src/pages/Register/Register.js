@@ -1,8 +1,12 @@
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 
 //css
 import styles from "../Login/Login.module.css";
+
+//components
+import SuccessMessage from '../../components/SuccessMessage/SuccessMessage';
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
 
 const Register = () => {
 
@@ -13,6 +17,12 @@ const Register = () => {
     const [phone, setPhone] = useState('')
     const [password, setPassword] = useState('')
     const [confirmPassword, setConfirmPassword] = useState('')
+
+    const [successMessage, setSuccessMessage] = useState('')
+    const [errorMessage, setErrorMessage] = useState('')
+
+    const navigate = useNavigate()
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -36,66 +46,94 @@ const Register = () => {
                 body: JSON.stringify(userData),
             })
 
-            if (!response.ok) {
-                throw new Error('Erro ao cadastrar usuário');
+            const message = await response.text();
+
+            if (response.ok) {
+                setSuccessMessage(message)
+
+                setName('')
+                setUsername('')
+                setEmail('')
+                setBirthDate('')
+                setPhone('')
+                setPassword('')
+                setConfirmPassword('')
+
+                navigate(`/profile/${username}`); 
+
+            }else{
+                setErrorMessage(message)
             }
-
-            setName('')
-            setUsername('')
-            setEmail('')
-            setBirthDate('')
-            setPhone('')
-            setPassword('')
-            setConfirmPassword('')
-
-            const data = await response.json();
-            console.log('Usuário cadastrado com sucesso:', data);
-            // Redirecionar ou exibir uma mensagem de sucesso
-
+    
         } catch (error) {
-            console.error('Erro:', error);
+            setErrorMessage(`Ocorreu um erro: ${error}`)
         }
     }
 
     return (
         <div className={styles.registerContainer}>
             <div>
+                {successMessage && ( <SuccessMessage message={successMessage} 
+                                                     onClose={() => setSuccessMessage('')} /> )}
+                        
+                {errorMessage && ( <ErrorMessage message={errorMessage} />) }
+
                 <h1 className={styles.title}>Cadastro</h1>
                 <form className={styles.formRegister} onSubmit={handleSubmit}>
                     <input type="text" 
                            placeholder="Nome"
                            value={name} 
-                           onChange={(e) => setName(e.target.value)}  />
+                           onChange={(e) => { 
+                                setName(e.target.value)  
+                                setErrorMessage('') 
+                            }}  />
 
                     <input type="text" 
                            placeholder="Nome de Usuario"
                            value={username} 
-                           onChange={(e) => setUsername(e.target.value)} />
+                           onChange={(e) => {
+                                setUsername(e.target.value)
+                                setErrorMessage('') 
+                            }} />
 
                     <input type="email" 
                            placeholder="E-mail"
                            value={email} 
-                           onChange={(e) => setEmail(e.target.value)} />
+                           onChange={(e) => {
+                                setEmail(e.target.value)
+                                setErrorMessage('') }} />
 
                     <input type="date" 
                            placeholder="Data de Nascimento"
                            value={birthDate}
-                           onChange={(e) => setBirthDate(e.target.value)} />
+                           onChange={(e) => {
+                                setBirthDate(e.target.value)
+                                setErrorMessage('') 
+                            }} />
 
                     <input type="tel" 
                            placeholder="Telefone"
                            value={phone}
-                           onChange={(e) => setPhone(e.target.value)} />
+                           onChange={(e) => { 
+                                setPhone(e.target.value)
+                                setErrorMessage('') 
+                            }} />
 
                     <input type="password" 
                            placeholder="Senha"
                            value={password}
-                           onChange={(e) => setPassword(e.target.value)} />
+                           onChange={(e) => { 
+                                setPassword(e.target.value)
+                                setErrorMessage('') 
+                            }} />
 
                     <input type="password" 
                            placeholder="Confirmar Senha"
                            value={confirmPassword}
-                           onChange={(e) => setConfirmPassword(e.target.value)} />
+                           onChange={(e) => {
+                                setConfirmPassword(e.target.value)
+                                setErrorMessage('') 
+                            }} />
 
                     <div className={styles.loginDiv}>
                         Já possui conta? <Link to="/login" className={styles.loginLink}>Entrar</Link>

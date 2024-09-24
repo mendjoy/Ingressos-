@@ -2,7 +2,6 @@
   margin: 0;
   box-sizing: border-box;
   padding: 0;
-  background-color: #F5F5F5;
 }
 
 @font-face {
@@ -13,4 +12,12 @@
 .icon {
   transition: color 0.5s;
   background-color: transparent; 
+}
+
+.App{
+  background-color:#F5F5F5;
+}
+
+.appContent{
+  height: 100vh;
 }
