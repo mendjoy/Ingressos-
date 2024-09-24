@@ -12,3 +12,31 @@ CREATE TABLE user (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+CREATE TABLE events (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description TEXT,
+    event_date DATE NOT NULL,
+    start_time TIME,
+    end_time TIME,
+    location VARCHAR(255) NOT NULL,
+    capacity INT,
+    banner_url VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE ticket_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    ticket_type VARCHAR(100) NOT NULL
+);
+
+CREATE TABLE event_ticket_types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    event_id INT,
+    ticket_type_id INT,
+    price DECIMAL(10, 2) NOT NULL,
+    available_quantity INT NOT NULL,
+    FOREIGN KEY (event_id) REFERENCES events(id) ON DELETE CASCADE,
+    FOREIGN KEY (ticket_type_id) REFERENCES ticket_types(id) ON DELETE CASCADE
+);
+
