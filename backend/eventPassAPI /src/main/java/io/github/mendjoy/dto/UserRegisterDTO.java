@@ -1,15 +1,33 @@
 package io.github.mendjoy.dto;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.util.Date;
 
 public class UserRegisterDTO {
+
+    @NotBlank(message = "Nome é obrigatório!")
     private String name;
+
+    @NotBlank(message = "Username é obrigatório!")
     private String username;
+
+    @Email(message = "E-mail inválido!")
+    @NotBlank(message = "E-mail é obrigatório!")
     private String email;
+
+    @NotNull(message = "Data de nascimento é obrigatória!")
     private Date birthDate;
+
     private String phone;
     private Boolean admin;
+
+    @NotBlank(message = "Senha é obrigatória")
     private String password;
+
+    @NotBlank(message = "Confirmação de senha é obrigatória!")
     private String confirmPassword;
 
     public UserRegisterDTO() {

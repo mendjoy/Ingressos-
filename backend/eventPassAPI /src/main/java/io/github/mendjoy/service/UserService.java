@@ -19,8 +19,17 @@ public class UserService {
 
     @Transactional
     public User save(UserRegisterDTO userRegisterDTO) {
+
         if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
-            throw new IllegalArgumentException("As senhas não conferem");
+            throw new IllegalArgumentException("As senhas não conferem!");
+        }
+
+        if(userRepository.existsByEmail(userRegisterDTO.getEmail())){
+            throw new IllegalArgumentException("E-mail já cadastrado!");
+        }
+
+        if(userRepository.existsByUsername(userRegisterDTO.getUsername())){
+            throw new IllegalArgumentException("Username já cadastrado!");
         }
 
         User user = new User(
