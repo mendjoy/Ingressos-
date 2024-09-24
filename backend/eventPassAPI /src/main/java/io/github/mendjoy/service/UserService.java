@@ -1,6 +1,6 @@
 package io.github.mendjoy.service;
 
-import io.github.mendjoy.domain.entity.User;
+import io.github.mendjoy.entity.User;
 import io.github.mendjoy.dto.UserRegisterDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;

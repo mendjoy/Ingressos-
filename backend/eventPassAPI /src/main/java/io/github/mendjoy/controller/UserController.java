@@ -1,7 +1,6 @@
 package io.github.mendjoy.controller;
 
-import aj.org.objectweb.asm.commons.TryCatchBlockSorter;
-import io.github.mendjoy.domain.entity.User;
+import io.github.mendjoy.entity.User;
 import io.github.mendjoy.dto.UserRegisterDTO;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import io.github.mendjoy.service.UserService;
 
-import java.util.List;
 import java.util.stream.Collectors;
 
 @RestController

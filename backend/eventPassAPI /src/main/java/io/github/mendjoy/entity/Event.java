@@ -1,4 +1,4 @@
-package io.github.mendjoy.domain.entity;
+package io.github.mendjoy.entity;
 
 import jakarta.persistence.*;
 
