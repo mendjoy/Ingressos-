@@ -2,15 +2,16 @@ package io.github.mendjoy.security.jwt;
 
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
-import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
 
+import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -21,8 +22,11 @@ import java.util.Map;
 @Service
 public class JwtUtil {
 
-    private String SECRET_KEY = "your secret key";
-    private long EXPIRATION_TIME = 1000 * 60 * 60; //// 1 hora
+    @Value("${security.jwt.key-signature}")
+    private String secretKey;
+
+    @Value("${security.jwt.expiration-time}")
+    private long expirationTime;
 
     @Autowired
     private UserRepository userRepository;
@@ -45,17 +49,18 @@ public class JwtUtil {
     }
 
     public String generateToken(User user){
-        LocalDateTime dateExp = LocalDateTime.now().plusMinutes(EXPIRATION_TIME);
+        LocalDateTime dateExp = LocalDateTime.now().plusMinutes(expirationTime);
         Date data = Date.from(dateExp.atZone(ZoneId.systemDefault()).toInstant());
 
         Map<String, Object> claims = new HashMap<>();
 
-        Key key = Keys.secretKeyFor(SignatureAlgorithm.HS512);
+        Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         return Jwts.builder()
                 .claims(claims)
                 .subject(user.getUsername())
                 .expiration(data)
+                .issuedAt(new Date())
                 .signWith(key)
                 .compact();
     }
