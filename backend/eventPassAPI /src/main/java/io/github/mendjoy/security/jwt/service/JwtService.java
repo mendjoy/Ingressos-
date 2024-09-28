@@ -20,7 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 @Service
-public class JwtUtil {
+public class JwtService {
 
     @Value("${security.jwt.key-signature}")
     private String secretKey;
