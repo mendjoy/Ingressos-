@@ -28,7 +28,7 @@
    text-align: center;
 }
 
-.navbarLinks a{
+.navbarLinks a, .navbarLinks span{
     text-decoration: none;
     font-family: Arial, Helvetica, sans-serif;
     font-weight: bold;
@@ -38,8 +38,8 @@
     background-color: transparent;
 }
 
-.navbarLinks a:hover, .icon:hover {
-   background-color: #cb43116d;
+.navbarLinks a:hover, .navbarLinks span:hover, .icon:hover, .dropdownMenu button:hover {
+   background-color: #cccccc;
    color: #001F3F;
    border-radius: 10px;
    transition: 0.5s;
@@ -52,7 +52,7 @@
     width: 50%;
     margin: 0 auto;
     display: flex;
-    background-color: white;
+    background-color: #ffffff;
 }
 
 .searchInput{
@@ -75,5 +75,49 @@
     font-size: 25px;
     background-color: transparent;
     padding: 3px;
+}
 
+.dropdown {
+    position: relative;
+    display: inline-block; 
+}
+
+.dropdownToggle {
+    cursor: pointer;
+}
+
+.dropdownMenu {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Para que fique acima de outros elementos */
+}
+
+.dropdownMenu button, .dropdownMenu a{
+   font-weight: 100;
+   font-size: 1em;
+   padding: 8px;
+   color: #003366;
+}
+
+.dropdownMenu button{
+    border: none;
+    width: 100%;
+    background-color: transparent;
+}
+
+.dropdownItem {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    align-items: center;
+}
+
+.dropdownItem:hover {
+    background-color: #f0f0f0; /* Mudar cor ao passar o mouse */
 }
