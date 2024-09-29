@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState } from "react"
 import { Link } from "react-router-dom"
 
 //components
 import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
+
+//context
+import { useAuth } from "../../context/AuthContext"
 
 //css
 import  styles from "./Login.module.css"
@@ -16,6 +19,8 @@ const Login = () => {
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
+    const { login } = useAuth()
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -25,6 +30,7 @@ const Login = () => {
         }
 
         try {
+
             const response = await fetch("http://localhost:8080/user/login", {
                 method: "POST",
                 headers: {
@@ -33,19 +39,22 @@ const Login = () => {
                 body: JSON.stringify(userData)
             })
 
-            const message  = await response.text()
+            const data = await response.json()
 
             if(response.ok){
-                setSuccessMessage(message)
 
+                login(data.username, data.token)
+               
                 setEmail("")
                 setPassword("")
 
             }else{
-                setErrorMessage(message)
+                setErrorMessage(data.message)
             }
         } catch (error) {
+
             setErrorMessage(`Ocorreu um erro: ${error}`)
+            
         }
     }
     

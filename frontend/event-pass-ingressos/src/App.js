@@ -11,13 +11,14 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
 
-
-
+//context
+import { AuthProvider } from "./context/AuthContext"
 
 function App() {
   return (
     <div className="App">
         <BrowserRouter>
+        <AuthProvider>
             <Navbar/>
             <div className="appContent">
                 <Routes>
@@ -26,7 +27,8 @@ function App() {
                     <Route path="/register" element={<Register/>}/>
                 </Routes>
             </div>
-            <Footer/>
+          <Footer/>  
+          </AuthProvider>
         </BrowserRouter>
     </div>
   )
