@@ -1,5 +1,6 @@
-package io.github.mendjoy.security.jwt;
+package io.github.mendjoy.security.jwt.service;
 
+import io.github.mendjoy.dto.AuthResponseDTO;
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
 import io.jsonwebtoken.security.Keys;
@@ -34,7 +35,7 @@ public class JwtService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
-    public String authenticate(String email, String password){
+    public AuthResponseDTO authenticate(String email, String password){
         User user = userRepository.findByEmail(email);
 
         if(user == null){
@@ -42,10 +43,11 @@ public class JwtService {
         }
 
         if(!passwordEncoder.matches(password, user.getPassword())){
-            throw new BadCredentialsException("Senha incorreta");
+            throw new BadCredentialsException("Senha incorreta!");
         }
 
-        return generateToken(user);
+        String token = generateToken(user);
+        return new AuthResponseDTO(token, user.getUsername());
     }
 
     public String generateToken(User user){
@@ -53,16 +55,17 @@ public class JwtService {
         Date data = Date.from(dateExp.atZone(ZoneId.systemDefault()).toInstant());
 
         Map<String, Object> claims = new HashMap<>();
+        claims.put("email", user.getEmail());
 
         Key key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
 
         return Jwts.builder()
-                .claims(claims)
-                .subject(user.getUsername())
-                .expiration(data)
-                .issuedAt(new Date())
-                .signWith(key)
-                .compact();
+                   .claims(claims)
+                   .subject(user.getUsername())
+                   .expiration(data)
+                   .issuedAt(new Date())
+                   .signWith(key)
+                   .compact();
     }
 
 }
