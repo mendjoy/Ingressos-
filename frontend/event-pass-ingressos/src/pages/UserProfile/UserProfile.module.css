@@ -1,0 +1,77 @@
+.profileContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;     
+    margin-top: 100px;        
+    background-color: #f5f5f5;
+}
+
+.profileDetail {
+    display: flex;
+    flex-direction: column;     
+    width: 600px;           
+}
+
+.profileDetail label {
+    margin: 5px; 
+    color: #003366;
+    font-size: 1em; 
+}
+
+.inputField {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    outline: none;
+    font-size: 1rem;
+    margin-bottom: 10px;
+}
+
+.inputField[readonly]{
+    background-color: #f5f5f5; 
+    color: #666; 
+    cursor: not-allowed; 
+}
+
+.title {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2rem;
+    color: #003366;
+}
+
+.buttonContainer {
+    display: flex; 
+    width: 600px;
+   justify-content: space-between;
+    margin-top: 20px; 
+}
+
+.saveButton, .deleteButton {
+    flex: 1; 
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+    margin-right: 10px; 
+}
+
+.saveButton{
+    background-color: #003366; 
+}
+
+.saveButton:hover {
+    background-color: #002244; 
+}
+
+.deleteButton {
+    background-color: #ff0000; 
+}
+
+.deleteButton:hover {
+    background-color: #8b0000; 
+}

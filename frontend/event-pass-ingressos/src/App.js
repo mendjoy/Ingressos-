@@ -13,6 +13,7 @@ import Register from './pages/Register/Register';
 
 //context
 import { AuthProvider } from "./context/AuthContext"
+import UserProfile from './pages/UserProfile/UserProfile';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/profile" element={<UserProfile/>}/>
                 </Routes>
             </div>
           <Footer/>  
