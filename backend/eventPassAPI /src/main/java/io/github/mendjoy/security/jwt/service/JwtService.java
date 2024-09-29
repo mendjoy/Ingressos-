@@ -3,6 +3,7 @@ package io.github.mendjoy.security.jwt.service;
 import io.github.mendjoy.dto.AuthResponseDTO;
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -67,5 +68,6 @@ public class JwtService {
                    .signWith(key)
                    .compact();
     }
+
 
 }
