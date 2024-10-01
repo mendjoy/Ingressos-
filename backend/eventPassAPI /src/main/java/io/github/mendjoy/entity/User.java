@@ -1,12 +1,17 @@
 package io.github.mendjoy.entity;
 
+import io.github.mendjoy.enums.enums.UserRole;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class User {
+public class User implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,7 +28,8 @@ public class User {
 
     private String phone;
 
-    private Boolean admin;
+    @Column(name = "admin")
+    private UserRole userRole;
 
     private String password;
 
@@ -37,7 +43,7 @@ public class User {
         this.email = email;
         this.birthDate = birthDate;
         this.phone = phone;
-        this.admin = admin;
+        //this.admin = admin;
         this.password = password;
     }
 
@@ -89,12 +95,33 @@ public class User {
         this.phone = phone;
     }
 
-    public Boolean getAdmin() {
-        return admin;
+    @Override
+    public boolean isAccountNonExpired() {
+        return UserDetails.super.isAccountNonExpired();
     }
 
-    public void setAdmin(Boolean admin) {
-        this.admin = admin;
+    @Override
+    public boolean isAccountNonLocked() {
+        return UserDetails.super.isAccountNonLocked();
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return UserDetails.super.isCredentialsNonExpired();
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return UserDetails.super.isEnabled();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        if(this.userRole == UserRole.ADMIN) {
+            return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
+        }else {
+            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+        }
     }
 
     public String getPassword() {
