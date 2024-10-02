@@ -2,11 +2,8 @@ package io.github.mendjoy.entity;
 
 import io.github.mendjoy.enums.enums.UserRole;
 import jakarta.persistence.*;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
 
