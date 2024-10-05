@@ -1,6 +1,7 @@
 package io.github.mendjoy.config;
 
 import io.github.mendjoy.security.jwt.service.JwtAuthFilter;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,9 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig {
 
+    @Autowired
+    JwtAuthFilter jwtAuthFilter;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http ) throws Exception {
 
@@ -28,7 +32,7 @@ public class SecurityConfig {
                         authorize.requestMatchers("/user/login", "/user/register").permitAll();
                         authorize.anyRequest().authenticated();
                     })
-                    .addFilterBefore( new JwtAuthFilter(), UsernamePasswordAuthenticationFilter.class)
+                    .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)
                     .build();
     }
 
