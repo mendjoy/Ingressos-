@@ -13,6 +13,10 @@ import org.springframework.security.config.annotation.web.configurers.AbstractHt
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -20,10 +24,12 @@ public class SecurityConfig {
 
     private final JwtService jwtService;
     private final UserRepository userRepository;
+    private final CorsConfigurationSource corsConfigurationSource;
 
-    public SecurityConfig(JwtService jwtService, UserRepository userRepository) {
+    public SecurityConfig(JwtService jwtService, UserRepository userRepository, CorsConfigurationSource corsConfigurationSource) {
         this.jwtService = jwtService;
         this.userRepository = userRepository;
+        this.corsConfigurationSource = corsConfigurationSource;
     }
 
 
@@ -32,7 +38,7 @@ public class SecurityConfig {
         JwtAuthFilter jwtAuthFilter = new JwtAuthFilter(jwtService, userRepository);
 
         return  http.csrf(AbstractHttpConfigurer::disable)
-                    .cors(AbstractHttpConfigurer::disable)
+                    .cors(cors -> cors.configurationSource(corsConfigurationSource))
                     .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(authorize -> {
                         authorize.requestMatchers("/user/login", "/user/register").permitAll();
