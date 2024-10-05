@@ -61,9 +61,9 @@ const Navbar = () => {
                             
                             {dropdownVisible && (
                                 <div className={styles.dropdownMenu}>
-                                    <Link to="/profile" className={styles.dropdownItem}>Minha Conta</Link>
-                                    <Link to="#" className={styles.dropdownItem}>Meus Ingressos</Link>
-                                    <Link to="#" className={styles.dropdownItem}>Favoritos</Link>
+                                    <Link to="/profile" className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
+                                    <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
+                                    <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Favoritos</Link>
                                     <button onClick={ logout } className={styles.dropdownItem}> <RiLogoutBoxRLine /> Sair</button>
                                 </div>
                             )}
