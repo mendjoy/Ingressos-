@@ -1,19 +1,25 @@
 package io.github.mendjoy.service;
 
-import io.github.mendjoy.entity.User;
+import io.github.mendjoy.dto.UserProfileDTO;
 import io.github.mendjoy.dto.UserRegisterDTO;
+import io.github.mendjoy.entity.User;
+import io.github.mendjoy.repository.UserRepository;
+import io.github.mendjoy.security.jwt.service.JwtService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import io.github.mendjoy.repository.UserRepository;
 
 @Service
 public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    JwtService jwtService;
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
@@ -44,4 +50,21 @@ public class UserService {
 
         return userRepository.save(user);
     }
+
+
+    public UserProfileDTO getDetailsUser(String token){
+        String username = jwtService.getUsername(token.replace("Bearer ", ""));
+        User user = userRepository.findByUsername(username);
+
+        if(user != null){
+            return new UserProfileDTO(user.getName(),
+                                      user.getUsername(),
+                                      user.getBirthDate(),
+                                      user.getEmail(),
+                                      user.getPhone());
+        }else{
+            throw  new UsernameNotFoundException("Usuário não encontrado");
+        }
+    }
+
 }

@@ -3,6 +3,7 @@ package io.github.mendjoy.controller;
 import io.github.mendjoy.dto.AuthResponseDTO;
 import io.github.mendjoy.dto.UserLoginDTO;
 import io.github.mendjoy.dto.UserRegisterDTO;
+import io.github.mendjoy.dto.UserProfileDTO;
 import io.github.mendjoy.security.jwt.service.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +19,6 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/user")
-@CrossOrigin(origins = "http://localhost:3000")
 public class UserController {
 
     @Autowired
@@ -59,6 +59,12 @@ public class UserController {
         AuthResponseDTO authResponseDTO = jwtService.authenticate(userLoginDTO.getEmail(), userLoginDTO.getPassword());
 
         return ResponseEntity.ok(authResponseDTO);
+    }
+
+    @GetMapping("/profile")
+    public ResponseEntity<UserProfileDTO> profile(@RequestHeader("Authorization") String authorizationHeader){
+        UserProfileDTO userProfileDTO = userService.getDetailsUser(authorizationHeader);
+        return ResponseEntity.ok(userProfileDTO);
     }
 
 }

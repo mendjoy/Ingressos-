@@ -1,18 +1,23 @@
 package io.github.mendjoy.dto;
 
-public class userProfileDTO {
+import java.util.Date;
+
+public class UserProfileDTO {
 
     private String name;
     private String username;
+    private Date birthDate;
     private String email;
     private String phone;
 
-    public userProfileDTO() {
+    public UserProfileDTO() {
+
     }
 
-    public userProfileDTO(String name, String username, String email, String phone) {
+    public UserProfileDTO(String name, String username, Date birthDate, String email, String phone) {
         this.name = name;
         this.username = username;
+        this.birthDate = birthDate;
         this.email = email;
         this.phone = phone;
     }
@@ -47,5 +52,13 @@ public class userProfileDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public Date getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Date birthDate) {
+        this.birthDate = birthDate;
     }
 }
