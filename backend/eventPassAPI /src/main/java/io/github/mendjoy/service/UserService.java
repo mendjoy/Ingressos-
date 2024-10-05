@@ -4,6 +4,7 @@ import io.github.mendjoy.entity.User;
 import io.github.mendjoy.dto.UserRegisterDTO;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import io.github.mendjoy.repository.UserRepository;
@@ -14,15 +15,10 @@ public class UserService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Transactional
     public User save(UserRegisterDTO userRegisterDTO) {
-
-        if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
-            throw new IllegalArgumentException("As senhas não conferem!");
-        }
 
         if(userRepository.existsByEmail(userRegisterDTO.getEmail())){
             throw new IllegalArgumentException("E-mail já cadastrado!");
@@ -32,13 +28,17 @@ public class UserService {
             throw new IllegalArgumentException("Username já cadastrado!");
         }
 
+        if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
+            throw new IllegalArgumentException("As senhas não conferem!");
+        }
+
         User user = new User(
                 userRegisterDTO.getName(),
                 userRegisterDTO.getUsername(),
                 userRegisterDTO.getEmail(),
                 userRegisterDTO.getBirthDate(),
                 userRegisterDTO.getPhone(),
-                userRegisterDTO.getAdmin(),
+                userRegisterDTO.getRole(),
                 passwordEncoder.encode(userRegisterDTO.getPassword())
         );
 

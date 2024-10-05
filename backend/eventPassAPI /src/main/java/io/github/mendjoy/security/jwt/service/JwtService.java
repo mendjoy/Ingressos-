@@ -4,12 +4,12 @@ import io.github.mendjoy.dto.AuthResponseDTO;
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
-import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import io.jsonwebtoken.Jwts;
 import org.springframework.stereotype.Service;
@@ -34,8 +34,7 @@ public class JwtService {
     @Autowired
     private UserRepository userRepository;
 
-    @Autowired
-    private PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     public AuthResponseDTO authenticate(String email, String password){
         User user = userRepository.findByEmail(email);
@@ -81,7 +80,7 @@ public class JwtService {
 
     public boolean validateToken(String token){
         try {
-            Jwts.parser().decryptWith(getSecretKey()).build().parse(token);
+            Jwts.parser().verifyWith(getSecretKey()).build().parse(token);
             return true;
         }catch (ExpiredJwtException exception){
             return false;
