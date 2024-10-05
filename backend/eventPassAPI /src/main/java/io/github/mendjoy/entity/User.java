@@ -2,8 +2,11 @@ package io.github.mendjoy.entity;
 
 import io.github.mendjoy.enums.enums.UserRole;
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
-import java.time.LocalDateTime;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +29,7 @@ public class User implements UserDetails {
     private String phone;
 
     @Column(name = "admin")
-    private UserRole userRole;
+    private UserRole role;
 
     private String password;
 
@@ -34,13 +37,13 @@ public class User implements UserDetails {
 
     }
 
-    public User(String name, String username, String email, Date birthDate, String phone, Boolean admin, String password) {
+    public User(String name, String username, String email, Date birthDate, String phone, UserRole role, String password) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.birthDate = birthDate;
         this.phone = phone;
-        //this.admin = admin;
+        this.role = role;
         this.password = password;
     }
 
@@ -114,7 +117,7 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        if(this.userRole == UserRole.ADMIN) {
+        if(this.role == UserRole.ADMIN) {
             return List.of(new SimpleGrantedAuthority("ROLE_ADMIN"), new SimpleGrantedAuthority("ROLE_USER"));
         }else {
             return List.of(new SimpleGrantedAuthority("ROLE_USER"));
