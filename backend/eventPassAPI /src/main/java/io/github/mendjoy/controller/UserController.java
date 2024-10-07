@@ -67,5 +67,11 @@ public class UserController {
         return ResponseEntity.ok(userProfileDTO);
     }
 
+    @PatchMapping("/profile")
+    public ResponseEntity updateProfile(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UserProfileDTO userProfileDTO){
+        userService.updateUserProfile(userProfileDTO);
+        return  ResponseEntity.ok().build();
+    }
+
 }
 

@@ -51,6 +51,20 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    @Transactional
+    public void updateUserProfile(UserProfileDTO userProfileDTO){
+        User user = userRepository.findByUsername(userProfileDTO.getUsername());
+
+        if(user != null){
+            user.setName(userProfileDTO.getName());
+            user.setPhone(userProfileDTO.getPhone());
+
+            userRepository.save(user);
+        }else{
+            throw  new UsernameNotFoundException("Usuário não encontrado");
+        }
+    }
+
 
     public UserProfileDTO getDetailsUser(String token){
         String username = jwtService.getUsername(token.replace("Bearer ", ""));
