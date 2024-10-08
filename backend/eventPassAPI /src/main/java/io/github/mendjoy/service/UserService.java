@@ -77,6 +77,7 @@ public class UserService {
             if(passwordEncoder.matches(passwordChangeDTO.getPassword(), user.getPassword())){
                if(passwordChangeDTO.getNewPassword().equals(passwordChangeDTO.getConfirmNewPassword())){
                     user.setPassword(passwordEncoder.encode(passwordChangeDTO.getNewPassword()));
+                    userRepository.save(user);
                }else{
                    throw new IllegalArgumentException("As senhas não conferem!");
                }
