@@ -1,9 +1,6 @@
 package io.github.mendjoy.controller;
 
-import io.github.mendjoy.dto.AuthResponseDTO;
-import io.github.mendjoy.dto.UserLoginDTO;
-import io.github.mendjoy.dto.UserRegisterDTO;
-import io.github.mendjoy.dto.UserProfileDTO;
+import io.github.mendjoy.dto.*;
 import io.github.mendjoy.security.jwt.service.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -70,7 +67,13 @@ public class UserController {
     @PatchMapping("/profile")
     public ResponseEntity updateProfile(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UserProfileDTO userProfileDTO){
         userService.updateUserProfile(userProfileDTO);
-        return  ResponseEntity.ok().build();
+        return  ResponseEntity.ok("Perfil atualizado com sucesso!");
+    }
+
+    @PatchMapping
+    public ResponseEntity updatePassword(@RequestHeader("Authorization") String authorizationHeader, @RequestBody PasswordChangeDTO passwordChangeDTO){
+        userService.updatePassword(authorizationHeader, passwordChangeDTO);
+        return ResponseEntity.ok().build();
     }
 
 }
