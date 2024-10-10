@@ -8,9 +8,6 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 //context
 import { useAuth } from "../../context/AuthContext"
 
-//css
-import  styles from "./Login.module.css"
-
 const Login = () => {
 
     const [email, setEmail] = useState("")
@@ -59,14 +56,13 @@ const Login = () => {
     }
     
     return(
-        <div className={styles.loginContainer}>
+        <div className="formContainer">
             <div>
-                {successMessage && ( <SuccessMessage message={successMessage} 
-                                                     onClose={() => setSuccessMessage('')} /> )}
-                        
+                {successMessage && ( <SuccessMessage message={successMessage}/> )}
                 {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-                <h1 className={styles.title}>Login</h1>
-                <form className={styles.formLogin} onSubmit={handleSubmit}>
+                
+                <form onSubmit={handleSubmit}>
+                    <h2 className="formTitle">Login</h2>
                     <input type="email"  placeholder="E-mail" 
                                          value={email}
                                          onChange={ (e) => {
@@ -79,8 +75,8 @@ const Login = () => {
                                                 setPassword(e.target.value)
                                                 setErrorMessage("")
                                             }} />
-                    <div className={styles.registerDiv}>Não possui cadastro? <Link to="/register" className={styles.registerLink}>Cadastrar</Link></div>
-                    <button type="submit" className={styles.loginButton}>Entrar</button>
+                    <div className="registerLoginDiv">Não possui cadastro? <Link to="/register">Cadastrar</Link></div>
+                    <button type="submit" className="blueButton">Entrar</button>
                 </form>
             </div>
         </div>

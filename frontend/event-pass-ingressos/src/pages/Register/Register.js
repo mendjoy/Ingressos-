@@ -1,12 +1,9 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useState } from 'react';
 
-//css
-import styles from "../Login/Login.module.css";
-
 //components
-import SuccessMessage from '../../components/SuccessMessage/SuccessMessage';
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage';
+import SuccessMessage from '../../components/SuccessMessage/SuccessMessage'
+import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
 
 const Register = () => {
 
@@ -46,7 +43,7 @@ const Register = () => {
                 body: JSON.stringify(userData),
             })
 
-            const message = await response.text();
+            const message = await response.text()
 
             if (response.ok) {
                 setSuccessMessage(message)
@@ -71,15 +68,14 @@ const Register = () => {
     }
 
     return (
-        <div className={styles.registerContainer}>
+        <div className="formContainer">
             <div>
-                {successMessage && ( <SuccessMessage message={successMessage} 
-                                                     onClose={() => setSuccessMessage('')} /> )}
-                        
+                {successMessage && ( <SuccessMessage message={successMessage}/> )}   
                 {errorMessage && ( <ErrorMessage message={errorMessage} />) }
 
-                <h1 className={styles.title}>Cadastro</h1>
-                <form className={styles.formRegister} onSubmit={handleSubmit}>
+                
+                <form onSubmit={handleSubmit}>
+                    <h2 className="formTitle">Cadastro</h2>
                     <input type="text" 
                            placeholder="Nome"
                            value={name} 
@@ -135,10 +131,10 @@ const Register = () => {
                                 setErrorMessage('') 
                             }} />
 
-                    <div className={styles.loginDiv}>
-                        Já possui conta? <Link to="/login" className={styles.loginLink}>Entrar</Link>
+                    <div className="registerLoginDiv">
+                        Já possui conta? <Link to="/login">Entrar</Link>
                     </div>
-                    <button type="submit" className={styles.registerButton}>Cadastrar</button>
+                    <button type="submit" className="blueButton">Cadastrar</button>
                 </form>
             </div>
         </div>
