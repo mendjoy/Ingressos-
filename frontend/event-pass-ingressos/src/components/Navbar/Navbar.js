@@ -64,6 +64,7 @@ const Navbar = () => {
                                     <Link to="/profile" className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
                                     <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
                                     <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Favoritos</Link>
+                                    <Link to="/profile/change" className={styles.dropdownItem} onClick={toggleDropDown}>Alterar Senha</Link>
                                     <button onClick={ logout } className={styles.dropdownItem}> <RiLogoutBoxRLine /> Sair</button>
                                 </div>
                             )}

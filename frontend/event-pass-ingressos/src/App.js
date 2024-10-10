@@ -10,10 +10,12 @@ import Footer from './components/Footer/Footer';
 import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Register from './pages/Register/Register';
+import UserProfile from './pages/UserProfile/UserProfile';
+import ChangePassword from './pages/ChangePassword/ChangePassword';
 
 //context
 import { AuthProvider } from "./context/AuthContext"
-import UserProfile from './pages/UserProfile/UserProfile';
+
 
 function App() {
   return (
@@ -27,6 +29,7 @@ function App() {
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
                     <Route path="/profile" element={<UserProfile/>}/>
+                    <Route path="/profile/change" element={<ChangePassword/>}/>
                 </Routes>
             </div>
           <Footer/>  
