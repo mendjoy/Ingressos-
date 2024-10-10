@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react"
-import styles from "./UserProfile.module.css"
 
 //components
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
+import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
 
 const UserProfile = () => {
 
@@ -11,13 +11,15 @@ const UserProfile = () => {
     const [username, setUsername] = useState("")
     const [birthDate, setBirthDate] = useState("")
     const [phone, setPhone] = useState("")
+    const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+
+    const token = localStorage.getItem("token")
 
     const getUserDetails = async () => {
 
-        const token = localStorage.getItem('token');
-       
         try {
+
             const response = await fetch(`/user/profile`, {
                 method: "GET",
                 headers: {
@@ -27,16 +29,59 @@ const UserProfile = () => {
             })
 
             const data = await response.json()
-
+           
             let newDateObj = new Date(data.birthDate)
             const formattedDate = newDateObj.toISOString().split("T")[0]
 
-            setName(data.name)
-            setUsername(data.username)
-            setEmail(data.email)
-            setBirthDate(formattedDate)
-            setPhone(data.phone)
+            if(response.ok){
+                setName(data.name)
+                setUsername(data.username)
+                setEmail(data.email)
+                setBirthDate(formattedDate)
+                setPhone(data.phone)
+            }else{
+                setErrorMessage(data.message)
+            }
+         
 
+        } catch (error) {
+            setErrorMessage(`Ocorreu um erro: ${error}`)
+        }
+    }
+
+    const handleSubmit = async (event) => {
+        event.preventDefault()
+
+        const userUpdate = {
+            name,
+            username,
+            birthDate,
+            email,
+            phone,
+        }
+
+        try {
+
+            const response = await fetch(`/user/profile`, {
+                method: "PATCH",
+                headers: {
+                    'Content-Type' : 'application/json',
+                    'Authorization': `Bearer ${token}`
+                },
+                body: JSON.stringify(userUpdate)
+
+            })
+
+            const data = await response
+            console.log(data)
+
+            if(response.ok){
+               // setSuccessMessage(response.text())
+            }else{
+                //setErrorMessage(response.text())
+            }
+
+            
         } catch (error) {
             setErrorMessage(`Ocorreu um erro: ${error}`)
         }
@@ -47,58 +92,56 @@ const UserProfile = () => {
     }, [])
 
     return (
-        <div className={styles.profileContainer}>            
+        <div className="formContainer">            
             {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-            <h2 className={styles.title}>Dados da Conta</h2>
-            <div className={styles.profileDetail}>
-                <label htmlFor="name">Nome</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    className={styles.inputField} 
-                    value={name}
-                    onChange={(e) => { setName(e.target.value) }}/>
-            </div>
-            <div className={styles.profileDetail}>
-                <label htmlFor="name">Nome de Usuario</label>
-                <input 
-                    type="text" 
-                    id="name" 
-                    className={styles.inputField} 
-                    readOnly
-                    defaultValue={username}/>
-            </div>
-            <div className={styles.profileDetail}>
-                <label htmlFor="birthDate">Data de Nascimento</label>
-                <input 
-                    type="date" 
-                    id="birthDate"
-                    className={styles.inputField} 
-                    readOnly
-                    defaultValue={birthDate}/>
-            </div>
-            <div className={styles.profileDetail}>
-                <label htmlFor="email">Email</label>
-                <input 
-                    type="email" 
-                    id="email" 
-                    className={styles.inputField} 
-                    readOnly
-                    defaultValue={email}/>
-            </div>
-            <div className={styles.profileDetail}>
-                <label htmlFor="phone">Telefone</label>
-                <input 
-                    type="tel" 
-                    id="phone" 
-                    className={styles.inputField} 
-                    value={phone}
-                    onChange={(e) => { setPhone(e.target.value) }}/>
-            </div>
-            <div className={styles.buttonContainer}>
-                <button className={styles.saveButton}>Salvar Dados</button>
-                <button className={styles.deleteButton}>Excluir Conta</button>
-            </div>
+            {successMessage && ( <SuccessMessage message={successMessage}/> )}
+            <form onSubmit={handleSubmit}>
+                <h2 className="formTitle">Dados da Conta</h2>
+                <div className="labelInput">
+                    <label htmlFor="name">Nome</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        value={name}
+                        onChange={(e) => { setName(e.target.value) }}/>
+                </div>
+                <div className="labelInput">
+                    <label htmlFor="name">Nome de Usuario</label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        readOnly
+                        defaultValue={username}/>
+                </div>
+                <div className="labelInput">
+                    <label htmlFor="birthDate">Data de Nascimento</label>
+                    <input 
+                        type="date" 
+                        id="birthDate"
+                        readOnly
+                        defaultValue={birthDate}/>
+                </div>
+                <div className="labelInput">
+                    <label htmlFor="email">Email</label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        readOnly
+                        defaultValue={email}/>
+                </div>
+                <div className="labelInput">
+                    <label htmlFor="phone">Telefone</label>
+                    <input 
+                        type="tel" 
+                        id="phone"  
+                        value={phone}
+                        onChange={(e) => { setPhone(e.target.value) }}/>
+                </div>
+                <div className="btContainer">
+                    <button className="blueButton">Salvar Dados</button>
+                    <button className="redButton">Excluir Conta</button>
+                </div>
+            </form>
         </div>
     )
 }

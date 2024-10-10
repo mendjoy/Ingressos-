@@ -21,3 +21,99 @@
 .appContent{
   height: 100vh;
 }
+
+.formContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  margin-top: 100px;        
+  background-color: #f5f5f5;
+}
+
+.formTitle{
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2rem;
+  color: #003366;
+}
+
+form{
+  display: flex;
+  flex-direction: column;  
+  gap: 10px;               
+  width: 500px;  
+}
+
+form input{
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  outline: none;
+  font-size: 1rem;
+}
+
+.labelInput{
+  display: flex;
+  flex-direction: column;     
+  width: 600px;    
+}
+
+form input[readonly]{
+  background-color: #f5f5f5; 
+  color: #666; 
+  cursor: not-allowed; 
+}
+
+.btContainer{
+  display: flex; 
+  width: 600px;
+  margin-top: 20px; 
+}
+
+.btContainer button{
+  margin-right: 5px;
+}
+
+.blueButton,.redButton { 
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 15px;
+  font-size: 1rem;
+  cursor: pointer;
+  font-weight: bold;
+  width: 100%;
+}
+
+.blueButton{
+  background-color: #003366;
+}
+
+.redButton{
+  background-color: #ff0000;
+}
+
+.blueButton:hover{
+  background-color: #002244;
+}
+
+.redButton:hover{
+  background-color: #8b0000;
+}
+
+.registerLoginDiv{
+  color:  #605f5f;
+  padding: 5px;
+}
+
+.registerLoginDiv a {
+  text-decoration: none;
+  color: #003366;
+}
+
+.registerLoginDiv a:hover{
+  text-decoration: underline;
+}
+
+
+
