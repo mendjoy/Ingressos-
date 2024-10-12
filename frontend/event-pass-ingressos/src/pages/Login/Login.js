@@ -8,6 +8,8 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 //context
 import { useAuth } from "../../context/AuthContext"
 
+import  postData  from "../../services/api/postData"
+
 const Login = () => {
 
     const [email, setEmail] = useState("")
@@ -28,40 +30,25 @@ const Login = () => {
 
         try {
 
-            const response = await fetch("http://localhost:8080/user/login", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(userData)
-            })
+            const data = await postData("/user/login", userData)
 
-            const data = await response.json()
+            login(data.username, data.token)
 
-            if(response.ok){
+            setEmail("")
+            setPassword("")
 
-                login(data.username, data.token)
-               
-                setEmail("")
-                setPassword("")
-
-            }else{
-                setErrorMessage(data.message)
-            }
         } catch (error) {
-
-            setErrorMessage(`Ocorreu um erro: ${error}`)
-            
+            setErrorMessage(error.message)
         }
     }
     
     return(
         <div className="formContainer">
-            <div>
-                {successMessage && ( <SuccessMessage message={successMessage}/> )}
-                {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-                
+            <div> 
                 <form onSubmit={handleSubmit}>
+                    {successMessage && ( <SuccessMessage message={successMessage}/> )}
+                    {errorMessage && ( <ErrorMessage message={errorMessage} />) }
+
                     <h2 className="formTitle">Login</h2>
                     <input type="email"  placeholder="E-mail" 
                                          value={email}
