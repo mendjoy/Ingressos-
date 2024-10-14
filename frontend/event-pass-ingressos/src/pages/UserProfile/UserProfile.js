@@ -4,6 +4,9 @@ import { useEffect, useState } from "react"
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
 
+import getData  from "../../services/api/getData"
+import patchData  from "../../services/api/patchData"
+
 const UserProfile = () => {
 
     const [name, setName] = useState("")
@@ -14,38 +17,23 @@ const UserProfile = () => {
     const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    const token = localStorage.getItem("token")
-
     const getUserDetails = async () => {
 
         try {
 
-            const response = await fetch(`/user/profile`, {
-                method: "GET",
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-            })
+            const data = await getData("/user/profile")
 
-            const data = await response.json()
-           
             let newDateObj = new Date(data.birthDate)
             const formattedDate = newDateObj.toISOString().split("T")[0]
 
-            if(response.ok){
-                setName(data.name)
-                setUsername(data.username)
-                setEmail(data.email)
-                setBirthDate(formattedDate)
-                setPhone(data.phone)
-            }else{
-                setErrorMessage(data.message)
-            }
-         
+            setName(data.name)
+            setUsername(data.username)
+            setEmail(data.email)
+            setBirthDate(formattedDate)
+            setPhone(data.phone)
 
         } catch (error) {
-            setErrorMessage(`Ocorreu um erro: ${error}`)
+            setErrorMessage(error.message)
         }
     }
 
@@ -62,28 +50,11 @@ const UserProfile = () => {
 
         try {
 
-            const response = await fetch(`/user/profile`, {
-                method: "PATCH",
-                headers: {
-                    'Content-Type' : 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(userUpdate)
+            const data = await patchData(`/user/profile`, userUpdate)
+            setSuccessMessage(data.message)
 
-            })
-
-            const data = await response
-            console.log(data)
-
-            if(response.ok){
-               // setSuccessMessage(response.text())
-            }else{
-                //setErrorMessage(response.text())
-            }
-
-            
         } catch (error) {
-            setErrorMessage(`Ocorreu um erro: ${error}`)
+            setErrorMessage(error.message)
         }
     }
 
@@ -93,9 +64,11 @@ const UserProfile = () => {
 
     return (
         <div className="formContainer">            
-            {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-            {successMessage && ( <SuccessMessage message={successMessage}/> )}
             <form onSubmit={handleSubmit}>
+
+                {errorMessage && ( <ErrorMessage message={errorMessage} />) }
+                {successMessage && ( <SuccessMessage message={successMessage}/> )}
+
                 <h2 className="formTitle">Dados da Conta</h2>
                 <div className="labelInput">
                     <label htmlFor="name">Nome</label>
