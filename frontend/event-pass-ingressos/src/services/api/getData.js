@@ -3,12 +3,12 @@ const getData = async (url) => {
     try {
 
         const token = localStorage.getItem("token")
-
+        
         let authHeader = {}
-    
-        if (token !== "") {
+        
+        if (token !== null) {
             authHeader = {
-                Authorization: `Bearer ${token}`,
+                "Authorization": `Bearer ${token}`,
             }
         }
     
@@ -20,12 +20,12 @@ const getData = async (url) => {
             }
         })
 
-        if(!response){
+        if(!response.ok){
             const errorText = await response.text()
-            throw new Error(`Erro ${response.status}: ${errorText}`);
+            throw new Error(JSON.parse(errorText).message)
         }
 
-        return response
+        return response.json()
         
     } catch (error) {
         throw error
