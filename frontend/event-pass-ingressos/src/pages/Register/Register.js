@@ -1,9 +1,14 @@
-import { Link, useNavigate } from 'react-router-dom'
-import { useState } from 'react';
+import { Link, useNavigate } from "react-router-dom"
+import { useState } from "react"
 
 //components
-import SuccessMessage from '../../components/SuccessMessage/SuccessMessage'
-import ErrorMessage from '../../components/ErrorMessage/ErrorMessage'
+import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
+import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
+
+//context
+import { useAuth } from "../../context/AuthContext"
+
+import  postData  from "../../services/api/postData"
 
 const Register = () => {
 
@@ -17,6 +22,8 @@ const Register = () => {
 
     const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+
+    const { login } = useAuth()
 
     const navigate = useNavigate()
     
@@ -35,46 +42,31 @@ const Register = () => {
         }
     
         try {
-            const response = await fetch('http://localhost:8080/user/register', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(userData),
-            })
+            
+            const data = await postData("/user/register", userData)
+          
+            login(data.username, data.token)
 
-            const message = await response.text()
-
-            if (response.ok) {
-                setSuccessMessage(message)
-
-                setName('')
-                setUsername('')
-                setEmail('')
-                setBirthDate('')
-                setPhone('')
-                setPassword('')
-                setConfirmPassword('')
-
-                navigate(`/profile/${username}`); 
-
-            }else{
-                setErrorMessage(message)
-            }
-    
+            setName("")
+            setUsername("")
+            setEmail("")
+            setBirthDate("")
+            setPhone("")
+            setPassword("")
+            setConfirmPassword("")
+            navigate("/profile")
         } catch (error) {
-            setErrorMessage(`Ocorreu um erro: ${error}`)
+            setErrorMessage(error.message)
         }
     }
 
     return (
         <div className="formContainer">
             <div>
-                {successMessage && ( <SuccessMessage message={successMessage}/> )}   
-                {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-
-                
                 <form onSubmit={handleSubmit}>
+                    {successMessage && ( <SuccessMessage message={successMessage}/> )}   
+                    {errorMessage && ( <ErrorMessage message={errorMessage} />) }
+
                     <h2 className="formTitle">Cadastro</h2>
                     <input type="text" 
                            placeholder="Nome"
@@ -141,4 +133,4 @@ const Register = () => {
     )
 }
 
-export default Register;
+export default Register
