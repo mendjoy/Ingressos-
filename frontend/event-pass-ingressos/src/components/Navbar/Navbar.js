@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react"
 
 //css
-import  styles from "./Navbar.module.css";
+import  styles from "./Navbar.module.css"
 import { Link } from 'react-router-dom'
 
 //icons
-import { GrHomeRounded } from "react-icons/gr";
-import { BsCalendar4Event } from "react-icons/bs";
-import { IoTicketOutline } from "react-icons/io5";
-import { FaRegUser } from "react-icons/fa";
-import { IoSearch } from "react-icons/io5";
-import { MdOutlineExpandMore } from "react-icons/md";
-import { RiLogoutBoxRLine } from "react-icons/ri";
+import { GrHomeRounded } from "react-icons/gr"
+import { BsCalendar4Event } from "react-icons/bs"
+import { IoTicketOutline } from "react-icons/io5"
+import { FaRegUser } from "react-icons/fa"
+import { IoSearch } from "react-icons/io5"
+import { MdOutlineExpandMore } from "react-icons/md"
+import { RiLogoutBoxRLine } from "react-icons/ri"
 
 //context
 import { useAuth } from "../../context/AuthContext"
@@ -61,7 +61,7 @@ const Navbar = () => {
                             
                             {dropdownVisible && (
                                 <div className={styles.dropdownMenu}>
-                                    <Link to="/profile" className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
+                                    <Link to={"/profile"} className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
                                     <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
                                     <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Favoritos</Link>
                                     <Link to="/profile/change" className={styles.dropdownItem} onClick={toggleDropDown}>Alterar Senha</Link>

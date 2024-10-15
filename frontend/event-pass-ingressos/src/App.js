@@ -1,17 +1,17 @@
-import './App.css';
+import './App.css'
 
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
 
 //components
-import Navbar from './components//Navbar/Navbar';
-import Footer from './components/Footer/Footer';
+import Navbar from './components//Navbar/Navbar'
+import Footer from './components/Footer/Footer'
 
 //pages
-import Home from './pages/Home/Home';
-import Login from './pages/Login/Login';
-import Register from './pages/Register/Register';
-import UserProfile from './pages/UserProfile/UserProfile';
-import ChangePassword from './pages/ChangePassword/ChangePassword';
+import Home from './pages/Home/Home'
+import Login from './pages/Login/Login'
+import Register from './pages/Register/Register'
+import UserProfile from './pages/UserProfile/UserProfile'
+import ChangePassword from './pages/ChangePassword/ChangePassword'
 
 //context
 import { AuthProvider } from "./context/AuthContext"
