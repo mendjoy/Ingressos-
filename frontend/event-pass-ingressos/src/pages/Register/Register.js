@@ -44,17 +44,23 @@ const Register = () => {
         try {
             
             const data = await postData("/user/register", userData)
-          
-            login(data.username, data.token)
 
-            setName("")
-            setUsername("")
-            setEmail("")
-            setBirthDate("")
-            setPhone("")
-            setPassword("")
-            setConfirmPassword("")
-            navigate("/profile")
+            login(data.data.username, data.data.token)
+
+            setSuccessMessage(data.message)
+           
+            setTimeout(() => {
+                setSuccessMessage("")
+                setName("")
+                setUsername("")
+                setEmail("")
+                setBirthDate("")
+                setPhone("")
+                setPassword("")
+                setConfirmPassword("")
+                navigate("/profile")
+              }, 3000)
+
         } catch (error) {
             setErrorMessage(error.message)
         }
