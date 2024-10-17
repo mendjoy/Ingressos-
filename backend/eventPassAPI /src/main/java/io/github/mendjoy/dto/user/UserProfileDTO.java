@@ -1,4 +1,4 @@
-package io.github.mendjoy.dto;
+package io.github.mendjoy.dto.user;
 
 import java.util.Date;
 

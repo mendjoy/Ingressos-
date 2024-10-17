@@ -1,4 +1,4 @@
-package io.github.mendjoy.dto;
+package io.github.mendjoy.dto.user;
 
 import io.github.mendjoy.enums.enums.UserRole;
 import jakarta.validation.constraints.Email;

@@ -1,8 +1,8 @@
 package io.github.mendjoy.service;
 
-import io.github.mendjoy.dto.PasswordChangeDTO;
-import io.github.mendjoy.dto.UserProfileDTO;
-import io.github.mendjoy.dto.UserRegisterDTO;
+import io.github.mendjoy.dto.user.UserPasswordChangeDTO;
+import io.github.mendjoy.dto.user.UserProfileDTO;
+import io.github.mendjoy.dto.user.UserRegisterDTO;
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
 import io.github.mendjoy.security.jwt.service.JwtService;
@@ -68,7 +68,7 @@ public class UserService {
     }
 
     @Transactional
-    public void updatePassword(String token, PasswordChangeDTO passwordChangeDTO){
+    public void updatePassword(String token, UserPasswordChangeDTO passwordChangeDTO){
         String username = jwtService.getUsername(token.replace("Bearer ", ""));
 
         User user = userRepository.findByUsername(username);

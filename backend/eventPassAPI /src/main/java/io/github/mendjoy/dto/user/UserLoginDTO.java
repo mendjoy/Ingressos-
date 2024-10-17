@@ -1,4 +1,4 @@
-package io.github.mendjoy.dto;
+package io.github.mendjoy.dto.user;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

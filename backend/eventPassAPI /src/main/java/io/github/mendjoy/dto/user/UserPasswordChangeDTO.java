@@ -1,15 +1,15 @@
-package io.github.mendjoy.dto;
+package io.github.mendjoy.dto.user;
 
-public class PasswordChangeDTO {
+public class UserPasswordChangeDTO {
 
     private String password;
     private String newPassword;
     private String confirmNewPassword;
 
-    public PasswordChangeDTO() {
+    public UserPasswordChangeDTO() {
     }
 
-    public PasswordChangeDTO(String password, String newPassword, String confirmNewPassword) {
+    public UserPasswordChangeDTO(String password, String newPassword, String confirmNewPassword) {
         this.password = password;
         this.newPassword = newPassword;
         this.confirmNewPassword = confirmNewPassword;
