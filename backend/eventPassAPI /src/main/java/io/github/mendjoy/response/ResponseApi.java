@@ -1,4 +1,4 @@
-package io.github.mendjoy;
+package io.github.mendjoy.response;
 
 import org.springframework.http.HttpStatus;
 
