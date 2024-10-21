@@ -4,13 +4,13 @@ public enum UserRole {
     ADMIN(true),
     USER(false);
 
-    private Boolean role;
+    private final boolean isAdmin;
 
-    UserRole(Boolean role) {
-        this.role = role;
+    UserRole(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
-    public String getRole() {
-        return role ? "admin" : "user";
+    public boolean isAdmin() {
+        return isAdmin;
     }
 }

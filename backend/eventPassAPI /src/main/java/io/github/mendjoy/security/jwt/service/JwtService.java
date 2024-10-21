@@ -2,6 +2,7 @@ package io.github.mendjoy.security.jwt.service;
 
 import io.github.mendjoy.dto.AuthResponseDTO;
 import io.github.mendjoy.entity.User;
+import io.github.mendjoy.enums.enums.UserRole;
 import io.github.mendjoy.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.Keys;
@@ -48,7 +49,8 @@ public class JwtService {
         }
 
         String token = generateToken(user);
-        return new AuthResponseDTO(token, user.getUsername());
+
+        return new AuthResponseDTO(token, user.getUsername(), user.getRole().isAdmin());
     }
 
     private SecretKey getSecretKey(){

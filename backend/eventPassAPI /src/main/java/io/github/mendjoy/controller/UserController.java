@@ -60,7 +60,7 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<ResponseApi> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
         AuthResponseDTO authResponseDTO = jwtService.authenticate(userLoginDTO.getEmail(), userLoginDTO.getPassword());
-        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "", authResponseDTO ));
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "", authResponseDTO));
     }
 
     @GetMapping("/profile")
