@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 
 //components
 import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
@@ -19,6 +19,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
     const { login } = useAuth()
+    const navigate = useNavigate()
 
     const handleSubmit = async (event) => {
         event.preventDefault()
@@ -31,8 +32,8 @@ const Login = () => {
         try {
 
             const data = await postData("/user/login", userData)
-
-            login(data.username, data.token)
+            login(data.data.username, data.data.token, data.data.admin)
+            navigate("/")
 
             setEmail("")
             setPassword("")

@@ -23,14 +23,14 @@ const UserProfile = () => {
 
             const data = await getData("/user/profile")
 
-            let newDateObj = new Date(data.birthDate)
+            let newDateObj = new Date(data.data.birthDate)
             const formattedDate = newDateObj.toISOString().split("T")[0]
 
-            setName(data.name)
-            setUsername(data.username)
-            setEmail(data.email)
+            setName(data.data.name)
+            setUsername(data.data.username)
+            setEmail(data.data.email)
             setBirthDate(formattedDate)
-            setPhone(data.phone)
+            setPhone(data.data.phone)
 
         } catch (error) {
             setErrorMessage(error.message)
