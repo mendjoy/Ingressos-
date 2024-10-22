@@ -12,6 +12,7 @@ import Login from './pages/Login/Login'
 import Register from './pages/Register/Register'
 import UserProfile from './pages/UserProfile/UserProfile'
 import ChangePassword from './pages/ChangePassword/ChangePassword'
+import RegisterEvent from './pages/RegisterEvent/RegisterEvent'
 
 //context
 import { AuthProvider } from "./context/AuthContext"
@@ -28,6 +29,7 @@ function App() {
                     <Route path="/" element={<Home/>}/>
                     <Route path="/login" element={<Login/>}/>
                     <Route path="/register" element={<Register/>}/>
+                    <Route path="/register/event" element={<RegisterEvent/>}/>
                     <Route path="/profile" element={<UserProfile/>}/>
                     <Route path="/profile/change" element={<ChangePassword/>}/>
                 </Routes>
