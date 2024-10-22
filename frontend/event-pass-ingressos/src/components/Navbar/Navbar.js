@@ -18,7 +18,7 @@ import { useAuth } from "../../context/AuthContext"
 
 const Navbar = () => {
 
-    const { user, logout } = useAuth()
+    const { user, authority, logout } = useAuth()
     const [dropdownVisible, setDropdownVisible] = useState(false)
 
     const toggleDropDown = () => {
@@ -62,6 +62,7 @@ const Navbar = () => {
                             {dropdownVisible && (
                                 <div className={styles.dropdownMenu}>
                                     <Link to={"/profile"} className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
+                                    {authority && (<Link to="/register/event" className={styles.dropdownItem} onClick={toggleDropDown}>Cadastrar Evento</Link>)}
                                     <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
                                     <Link to="#" className={styles.dropdownItem} onClick={toggleDropDown}>Favoritos</Link>
                                     <Link to="/profile/change" className={styles.dropdownItem} onClick={toggleDropDown}>Alterar Senha</Link>
