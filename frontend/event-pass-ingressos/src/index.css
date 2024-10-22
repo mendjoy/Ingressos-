@@ -44,7 +44,7 @@ form{
   width: 500px;  
 }
 
-form input{
+form input, form textarea{
   padding: 10px;
   border: 1px solid #ccc;
   border-radius: 15px;
@@ -55,7 +55,21 @@ form input{
 .labelInput{
   display: flex;
   flex-direction: column;     
-  width: 600px;    
+}
+
+form label{
+  color: #003366;
+  margin-bottom: 3px;
+}
+
+form input[type="time"]{
+  width: 100%;
+}
+
+.timeContainer{
+  display: flex;
+  align-items: center;
+  gap: 10px;
 }
 
 form input[readonly]{
@@ -66,12 +80,9 @@ form input[readonly]{
 
 .btContainer{
   display: flex; 
-  width: 600px;
   margin-top: 20px; 
-}
-
-.btContainer button{
-  margin-right: 5px;
+  gap: 10px;
+  
 }
 
 .blueButton,.redButton { 
