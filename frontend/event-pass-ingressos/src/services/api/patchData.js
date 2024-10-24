@@ -22,7 +22,7 @@ const patchData = async (url, body) => {
         return data
         
     } catch (error) {
-        throw error
+        throw new Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
     }
 }
 
