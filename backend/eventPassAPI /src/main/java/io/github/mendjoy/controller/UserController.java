@@ -81,5 +81,11 @@ public class UserController {
         return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Senha alterada com sucesso!"));
     }
 
+    @DeleteMapping
+    public ResponseEntity<ResponseApi> delete (@RequestHeader("Authorization") String authorizationHeader){
+        userService.deleteUser(authorizationHeader);
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Conta deletada com sucesso!"));
+    }
+
 }
 

@@ -99,8 +99,22 @@ public class UserService {
                                       user.getEmail(),
                                       user.getPhone());
         }else{
-            throw  new UsernameNotFoundException("Usuário não encontrado");
+            throw new UsernameNotFoundException("Usuário não encontrado");
         }
+    }
+
+    @Transactional
+    public void deleteUser(String token){
+        String username = jwtService.getUsername(token.replace("Bearer ", ""));
+
+        User user = userRepository.findByUsername(username);
+
+        if(user != null){
+            userRepository.delete(user);
+        }else{
+            throw new UsernameNotFoundException("Usuário não encontrado");
+        }
+
     }
 
 }
