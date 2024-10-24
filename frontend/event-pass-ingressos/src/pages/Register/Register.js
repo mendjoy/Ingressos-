@@ -59,7 +59,7 @@ const Register = () => {
                 setPassword("")
                 setConfirmPassword("")
                 navigate("/profile")
-              }, 3000)
+              }, 2000)
 
         } catch (error) {
             setErrorMessage(error.message)

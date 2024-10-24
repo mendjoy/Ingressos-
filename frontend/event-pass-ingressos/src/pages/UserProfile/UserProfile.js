@@ -1,11 +1,16 @@
 import { useEffect, useState } from "react"
+import { useNavigate } from "react-router-dom"
 
 //components
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
 
+//context
+import { useAuth } from "../../context/AuthContext"
+
 import getData  from "../../services/api/getData"
 import patchData  from "../../services/api/patchData"
+import deleteData  from "../../services/api/deleteData"
 
 const UserProfile = () => {
 
@@ -16,6 +21,9 @@ const UserProfile = () => {
     const [phone, setPhone] = useState("")
     const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
+
+    const navigate = useNavigate()
+    const { logout } = useAuth()
 
     const getUserDetails = async () => {
 
@@ -38,17 +46,18 @@ const UserProfile = () => {
     }
 
     const handleSubmit = async (event) => {
-        event.preventDefault()
-
-        const userUpdate = {
-            name,
-            username,
-            birthDate,
-            email,
-            phone,
-        }
 
         try {
+
+            event.preventDefault()
+
+            const userUpdate = {
+                name,
+                username,
+                birthDate,
+                email,
+                phone,
+            }
 
             const data = await patchData(`/user/profile`, userUpdate)
             setSuccessMessage(data.message)
@@ -58,13 +67,38 @@ const UserProfile = () => {
         }
     }
 
+    const deleteAccount = async (event) => {
+
+        try {
+
+            event.preventDefault()
+            const data = await deleteData("/user")
+
+            setSuccessMessage(data.message)
+
+            setTimeout(() => {
+                setSuccessMessage("")
+                setName("")
+                setUsername("")
+                setEmail("")
+                setBirthDate("")
+                setPhone("")
+                logout()
+                navigate("/")
+              }, 2000)
+          
+        } catch (error) {
+             setErrorMessage(error.message)
+        }
+    }
+
     useEffect(() => {
         getUserDetails()
     }, [])
 
     return (
         <div className="formContainer">            
-            <form onSubmit={handleSubmit}>
+            <form>
 
                 {errorMessage && ( <ErrorMessage message={errorMessage} />) }
                 {successMessage && ( <SuccessMessage message={successMessage}/> )}
@@ -111,8 +145,8 @@ const UserProfile = () => {
                         onChange={(e) => { setPhone(e.target.value) }}/>
                 </div>
                 <div className="btContainer">
-                    <button className="blueButton">Salvar Dados</button>
-                    <button className="redButton">Excluir Conta</button>
+                    <button className="blueButton" onClick={handleSubmit}>Salvar Dados</button>
+                    <button className="redButton"  onClick={deleteAccount}>Excluir Conta</button>
                 </div>
             </form>
         </div>
