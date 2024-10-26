@@ -20,12 +20,7 @@ const getData = async (url) => {
             }
         })
 
-        if(!response.ok){
-            const errorText = await response.text()
-            throw new Error(JSON.parse(errorText).message)
-        }
-
-        return response.json()
+        return await response.json()
         
     } catch (error) {
         throw new Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")

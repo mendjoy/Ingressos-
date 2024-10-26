@@ -24,9 +24,17 @@ const ChangePassword = () => {
         try {
            
             const data = await patchData("/user/profile/change", passwordUpdate)
-            setErrorMessage("")
-            setSuccessMessage(data.message)
 
+            if(data.error){
+                
+                setErrorMessage(data.message)
+
+            }else{
+                
+                setErrorMessage("")
+                setSuccessMessage(data.message)
+            }
+           
         } catch (error) {
 
             setErrorMessage(error.message)

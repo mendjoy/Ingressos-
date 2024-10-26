@@ -32,12 +32,17 @@ const Login = () => {
         try {
 
             const data = await postData("/user/login", userData)
-            login(data.data.username, data.data.token, data.data.admin)
-            navigate("/")
 
-            setEmail("")
-            setPassword("")
+            if(data.error){
+                
+                setErrorMessage(data.message)
 
+            }else{
+                login(data.data.username, data.data.token, data.data.admin)
+                navigate("/")
+                setEmail("")
+                setPassword("")
+            }
         } catch (error) {
             setErrorMessage(error.message)
         }

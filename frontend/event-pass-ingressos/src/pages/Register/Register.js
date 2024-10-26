@@ -45,22 +45,27 @@ const Register = () => {
             
             const data = await postData("/user/register", userData)
 
-            login(data.data.username, data.data.token)
+            if(data.error){
+                
+                setErrorMessage(data.message)
 
-            setSuccessMessage(data.message)
-           
-            setTimeout(() => {
-                setSuccessMessage("")
-                setName("")
-                setUsername("")
-                setEmail("")
-                setBirthDate("")
-                setPhone("")
-                setPassword("")
-                setConfirmPassword("")
-                navigate("/profile")
-              }, 2000)
+            }else{
+                login(data.data.username, data.data.token)
 
+                setSuccessMessage(data.message)
+               
+                setTimeout(() => {
+                    setSuccessMessage("")
+                    setName("")
+                    setUsername("")
+                    setEmail("")
+                    setBirthDate("")
+                    setPhone("")
+                    setPassword("")
+                    setConfirmPassword("")
+                    navigate("/profile")
+                  }, 2000)
+            }
         } catch (error) {
             setErrorMessage(error.message)
         }

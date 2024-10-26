@@ -21,16 +21,10 @@ const postData = async (url, body) => {
             body: JSON.stringify(body),
         })
 
-        if(!response.ok){
-            const errorText = await response.text()
-            throw Error(JSON.parse(errorText).message)
-        }
-
-        const data = await response.json()
-        return data
+        return await response.json()
 
     } catch (error) {
-        throw new Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
+        throw Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
     }
 }
 
