@@ -1,6 +1,7 @@
 package io.github.mendjoy.exception;
 
 import io.github.mendjoy.dto.response.ResponseApi;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -15,12 +16,18 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ResponseApi> handleUserNotFoundException(UsernameNotFoundException exception){
         ResponseApi responseApi = new ResponseApi(HttpStatus.NOT_FOUND, exception.getMessage(), true);
-        return new ResponseEntity<>(responseApi, HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(responseApi, responseApi.getStatus());
     }
 
     @ExceptionHandler(BadCredentialsException.class)
     public ResponseEntity<ResponseApi> handleBadCredentialsException(BadCredentialsException exception) {
         ResponseApi responseApi = new ResponseApi(HttpStatus.UNAUTHORIZED, exception.getMessage(), true);
-        return new ResponseEntity<>(responseApi, HttpStatus.UNAUTHORIZED);
+        return new ResponseEntity<>(responseApi, responseApi.getStatus());
+    }
+
+    @ExceptionHandler(DuplicateKeyException.class)
+    public ResponseEntity<ResponseApi> handleDuplicateKeyException(DuplicateKeyException exception){
+        ResponseApi responseApi = new ResponseApi(HttpStatus.CONFLICT,exception.getMessage(), true);
+        return new ResponseEntity<>(responseApi, responseApi.getStatus());
     }
 }
