@@ -1,6 +1,6 @@
 package io.github.mendjoy.controller;
 
-import io.github.mendjoy.response.ResponseApi;
+import io.github.mendjoy.dto.response.ResponseApi;
 import io.github.mendjoy.dto.*;
 import io.github.mendjoy.dto.user.UserLoginDTO;
 import io.github.mendjoy.dto.user.UserPasswordChangeDTO;
@@ -49,7 +49,7 @@ public class UserController {
             userService.save(userRegisterDTO);
             AuthResponseDTO authResponseDTO = jwtService.authenticate(userRegisterDTO.getEmail(), userRegisterDTO.getPassword());
 
-            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseApi(HttpStatus.CREATED, "Registro Criado com sucesso!", authResponseDTO));
+            return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseApi(HttpStatus.CREATED, "Registro Criado com sucesso!", false, authResponseDTO));
 
         }catch (IllegalArgumentException e){
             return ResponseEntity.badRequest().body(e.getMessage());
@@ -60,31 +60,31 @@ public class UserController {
     @PostMapping("/login")
     public ResponseEntity<ResponseApi> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
         AuthResponseDTO authResponseDTO = jwtService.authenticate(userLoginDTO.getEmail(), userLoginDTO.getPassword());
-        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "", authResponseDTO));
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "",false, authResponseDTO));
     }
 
     @GetMapping("/profile")
     public ResponseEntity<ResponseApi> profile(@RequestHeader("Authorization") String authorizationHeader){
         UserProfileDTO userProfileDTO = userService.getDetailsUser(authorizationHeader);
-        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "", userProfileDTO ));
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "",false, userProfileDTO ));
     }
 
     @PatchMapping("/profile")
     public ResponseEntity<ResponseApi> updateProfile(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UserProfileDTO userProfileDTO){
         userService.updateUserProfile(userProfileDTO);
-        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Alterado com sucesso!"));
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Alterado com sucesso!", false));
     }
 
     @PatchMapping("/profile/change")
     public ResponseEntity<ResponseApi> updatePassword(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UserPasswordChangeDTO passwordChangeDTO){
         userService.updatePassword(authorizationHeader, passwordChangeDTO);
-        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Senha alterada com sucesso!"));
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Senha alterada com sucesso!", false));
     }
 
     @DeleteMapping
     public ResponseEntity<ResponseApi> delete (@RequestHeader("Authorization") String authorizationHeader){
         userService.deleteUser(authorizationHeader);
-        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Conta deletada com sucesso!"));
+        return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "Conta deletada com sucesso!", false));
     }
 
 }

@@ -2,7 +2,6 @@ package io.github.mendjoy.security.jwt.service;
 
 import io.github.mendjoy.dto.AuthResponseDTO;
 import io.github.mendjoy.entity.User;
-import io.github.mendjoy.enums.enums.UserRole;
 import io.github.mendjoy.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.Keys;
@@ -41,7 +40,7 @@ public class JwtService {
         User user = userRepository.findByEmail(email);
 
         if(user == null){
-            throw new UsernameNotFoundException("Usuário não encontrado!");
+            throw new UsernameNotFoundException("Email não cadastrado!");
         }
 
         if(!passwordEncoder.matches(password, user.getPassword())){
