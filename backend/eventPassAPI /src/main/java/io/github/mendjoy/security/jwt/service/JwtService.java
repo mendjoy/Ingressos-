@@ -1,6 +1,6 @@
 package io.github.mendjoy.security.jwt.service;
 
-import io.github.mendjoy.dto.AuthResponseDTO;
+import io.github.mendjoy.dto.user.UserAuthDTO;
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -36,7 +36,7 @@ public class JwtService {
 
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public AuthResponseDTO authenticate(String email, String password){
+    public UserAuthDTO authenticate(String email, String password){
         User user = userRepository.findByEmail(email);
 
         if(user == null){
@@ -49,7 +49,9 @@ public class JwtService {
 
         String token = generateToken(user);
 
-        return new AuthResponseDTO(token, user.getUsername(), user.getRole().isAdmin());
+        System.out.println(user.getRole());
+
+        return new UserAuthDTO(token, user.getUsername(), user.getRole().isAdmin());
     }
 
     private SecretKey getSecretKey(){

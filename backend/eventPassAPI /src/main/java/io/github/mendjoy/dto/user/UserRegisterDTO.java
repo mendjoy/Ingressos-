@@ -1,6 +1,5 @@
 package io.github.mendjoy.dto.user;
 
-import io.github.mendjoy.enums.enums.UserRole;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -23,7 +22,6 @@ public class UserRegisterDTO {
     private Date birthDate;
 
     private String phone;
-    private UserRole role = UserRole.USER;
 
     @NotBlank(message = "Senha é obrigatória")
     private String password;
@@ -35,13 +33,12 @@ public class UserRegisterDTO {
 
     }
 
-    public UserRegisterDTO(String name, String username, String email, Date birthDate, String phone, UserRole role, String password, String confirmPassword) {
+    public UserRegisterDTO(String name, String username, String email, Date birthDate, String phone, String password, String confirmPassword) {
         this.name = name;
         this.username = username;
         this.email = email;
         this.birthDate = birthDate;
         this.phone = phone;
-        this.role = role;
         this.password = password;
         this.confirmPassword = confirmPassword;
     }
@@ -84,14 +81,6 @@ public class UserRegisterDTO {
 
     public void setPhone(String phone) {
         this.phone = phone;
-    }
-
-    public UserRole getRole() {
-        return role;
-    }
-
-    public void setRole(UserRole role) {
-        this.role = role;
     }
 
     public String getPassword() {

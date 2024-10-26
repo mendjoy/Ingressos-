@@ -4,10 +4,12 @@ import io.github.mendjoy.dto.user.UserPasswordChangeDTO;
 import io.github.mendjoy.dto.user.UserProfileDTO;
 import io.github.mendjoy.dto.user.UserRegisterDTO;
 import io.github.mendjoy.entity.User;
+import io.github.mendjoy.enums.enums.UserRole;
 import io.github.mendjoy.repository.UserRepository;
 import io.github.mendjoy.security.jwt.service.JwtService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -26,18 +28,18 @@ public class UserService {
     private final PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
     @Transactional
-    public User save(UserRegisterDTO userRegisterDTO) {
+    public void save(UserRegisterDTO userRegisterDTO) {
 
         if(userRepository.existsByEmail(userRegisterDTO.getEmail())){
-            throw new IllegalArgumentException("E-mail já cadastrado!");
+            throw new DuplicateKeyException("E-mail já cadastrado!");
         }
 
         if(userRepository.existsByUsername(userRegisterDTO.getUsername())){
-            throw new IllegalArgumentException("Username já cadastrado!");
+            throw new DuplicateKeyException("Username já cadastrado!");
         }
 
         if (!userRegisterDTO.getPassword().equals(userRegisterDTO.getConfirmPassword())) {
-            throw new IllegalArgumentException("As senhas não conferem!");
+            throw new BadCredentialsException("As senhas não conferem!");
         }
 
         User user = new User(
@@ -46,11 +48,11 @@ public class UserService {
                 userRegisterDTO.getEmail(),
                 userRegisterDTO.getBirthDate(),
                 userRegisterDTO.getPhone(),
-                userRegisterDTO.getRole(),
+                UserRole.USER,
                 passwordEncoder.encode(userRegisterDTO.getPassword())
         );
 
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Transactional
@@ -79,7 +81,7 @@ public class UserService {
                     user.setPassword(passwordEncoder.encode(passwordChangeDTO.getNewPassword()));
                     userRepository.save(user);
                }else{
-                   throw new IllegalArgumentException("As senhas não conferem!");
+                   throw new BadCredentialsException("As senhas não conferem!");
                }
             }else{
                 throw new BadCredentialsException("Senha incorreta!");

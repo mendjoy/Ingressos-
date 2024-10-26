@@ -1,11 +1,7 @@
 package io.github.mendjoy.controller;
 
 import io.github.mendjoy.dto.response.ResponseApi;
-import io.github.mendjoy.dto.*;
-import io.github.mendjoy.dto.user.UserLoginDTO;
-import io.github.mendjoy.dto.user.UserPasswordChangeDTO;
-import io.github.mendjoy.dto.user.UserProfileDTO;
-import io.github.mendjoy.dto.user.UserRegisterDTO;
+import io.github.mendjoy.dto.user.*;
 import io.github.mendjoy.security.jwt.service.JwtService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,7 +43,7 @@ public class UserController {
             }
 
             userService.save(userRegisterDTO);
-            AuthResponseDTO authResponseDTO = jwtService.authenticate(userRegisterDTO.getEmail(), userRegisterDTO.getPassword());
+            UserAuthDTO authResponseDTO = jwtService.authenticate(userRegisterDTO.getEmail(), userRegisterDTO.getPassword());
 
             return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseApi(HttpStatus.CREATED, "Registro Criado com sucesso!", false, authResponseDTO));
 
@@ -59,7 +55,7 @@ public class UserController {
 
     @PostMapping("/login")
     public ResponseEntity<ResponseApi> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
-        AuthResponseDTO authResponseDTO = jwtService.authenticate(userLoginDTO.getEmail(), userLoginDTO.getPassword());
+        UserAuthDTO authResponseDTO = jwtService.authenticate(userLoginDTO.getEmail(), userLoginDTO.getPassword());
         return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "",false, authResponseDTO));
     }
 

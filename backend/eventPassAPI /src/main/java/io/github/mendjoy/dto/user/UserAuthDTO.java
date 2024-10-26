@@ -1,15 +1,15 @@
-package io.github.mendjoy.dto;
+package io.github.mendjoy.dto.user;
 
-public class AuthResponseDTO {
+public class UserAuthDTO {
 
     private String token;
     private String username;
     private boolean isAdmin;
 
-    public AuthResponseDTO() {
+    public UserAuthDTO() {
     }
 
-    public AuthResponseDTO(String token, String username, boolean isAdmin) {
+    public UserAuthDTO(String token, String username, boolean isAdmin) {
         this.token = token;
         this.username = username;
         this.isAdmin  = isAdmin;
