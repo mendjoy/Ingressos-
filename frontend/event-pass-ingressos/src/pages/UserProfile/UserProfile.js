@@ -60,8 +60,24 @@ const UserProfile = () => {
             }
 
             const data = await patchData(`/user/profile`, userUpdate)
-            setSuccessMessage(data.message)
 
+            if(data.error){
+                
+                setErrorMessage(data.message)
+            }else{
+
+                setSuccessMessage(data.message)
+
+                setTimeout(() => {
+                    setSuccessMessage("")
+                    setName("")
+                    setUsername("")
+                    setEmail("")
+                    setBirthDate("")
+                    setPhone("")
+                    navigate("/")
+                }, 2000)
+            }
         } catch (error) {
             setErrorMessage(error.message)
         }
