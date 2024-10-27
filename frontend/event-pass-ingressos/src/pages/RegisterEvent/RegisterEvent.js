@@ -4,6 +4,8 @@ import { useState } from "react"
 import SuccessMessage from "../../components/SuccessMessage/SuccessMessage"
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage"
 
+import postData from "../../services/api/postData"
+
 const RegisterEvent = () => {
 
     const [name, setName] = useState("")
@@ -17,10 +19,40 @@ const RegisterEvent = () => {
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
+    const handleSubmit = async (e) => {
+
+        try {
+
+            e.preventDefault()
+
+            const eventRegister = {
+                name,
+                description,
+                eventDate,
+                startTime,
+                endTime,
+                capacity,
+                location,
+                bannerUrl
+            }
+
+            const data = await postData(`/events`, eventRegister)
+
+            if(data.error){
+                setErrorMessage(error.message)
+            }else{
+
+            }
+
+        } catch (error) {
+            setErrorMessage(error.message)
+        }
+    }
+
     return (
         <div className="formContainer">
             <div>
-                <form>
+                <form onSubmit={handleSubmit}>
                     {successMessage && ( <SuccessMessage message={successMessage}/> )}
                     {errorMessage && ( <ErrorMessage message={errorMessage} />) }
                     <h2 className="formTitle">Cadastrar Evento</h2>
@@ -35,7 +67,7 @@ const RegisterEvent = () => {
                     </div>
                     <div className="labelInput">  
                         <label>Descrição</label>
-                        <textarea rows={5} cols={30}
+                        <textarea rows={2} cols={30}
                                   placeholder="Descrição do evento"
                                   value={description}
                                   onChange={ (e) => {
@@ -95,6 +127,7 @@ const RegisterEvent = () => {
                                                 setErrorMessage("")
                                          }} />                  
                     </div>
+                    <button type="submit" className="blueButton">Cadastrar</button>
                 </form>
             </div>
         </div>
