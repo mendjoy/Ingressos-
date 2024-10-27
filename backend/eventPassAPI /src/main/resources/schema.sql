@@ -8,7 +8,7 @@ CREATE TABLE user (
     password VARCHAR(255) NOT NULL,
     birth_date DATE,
     phone VARCHAR(20),
-    admin BOOLEAN DEFAULT FALSE,
+    admin INT DEFAULT 0,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 

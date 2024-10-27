@@ -38,6 +38,7 @@ public class JwtService {
 
     public UserAuthDTO authenticate(String email, String password){
         User user = userRepository.findByEmail(email);
+        boolean admin = false;
 
         if(user == null){
             throw new UsernameNotFoundException("Email não cadastrado!");
@@ -49,9 +50,11 @@ public class JwtService {
 
         String token = generateToken(user);
 
-        System.out.println(user.getRole());
+        if(user.getRole().getRole() > 0){
+            admin = true;
+        }
 
-        return new UserAuthDTO(token, user.getUsername(), user.getRole().isAdmin());
+        return new UserAuthDTO(token, user.getUsername(), admin);
     }
 
     private SecretKey getSecretKey(){

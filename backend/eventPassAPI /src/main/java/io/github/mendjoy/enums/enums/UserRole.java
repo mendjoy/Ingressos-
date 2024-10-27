@@ -1,16 +1,17 @@
 package io.github.mendjoy.enums.enums;
 
 public enum UserRole {
-    ADMIN(true),
-    USER(false);
 
-    private final boolean isAdmin;
+    USER(0),
+    ADMIN(1);
 
-    UserRole(boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    private final int role;
+
+    UserRole(int role) {
+        this.role = role;
     }
 
-    public boolean isAdmin() {
-        return isAdmin;
+    public int getRole() {
+        return role;
     }
 }
