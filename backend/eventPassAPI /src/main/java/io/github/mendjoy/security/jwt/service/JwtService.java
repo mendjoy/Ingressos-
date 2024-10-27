@@ -5,6 +5,7 @@ import io.github.mendjoy.entity.User;
 import io.github.mendjoy.repository.UserRepository;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.security.Keys;
+import org.antlr.v4.runtime.Token;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -94,11 +95,16 @@ public class JwtService {
     }
 
     public String getUsername(String token){
+        String tokenString = token.replace("Bearer ", "");
         return Jwts.parser()
                    .verifyWith(getSecretKey())
                    .build()
-                   .parseSignedClaims(token).getPayload()
+                   .parseSignedClaims(tokenString).getPayload()
                    .getSubject();
+    }
+
+    public String getToken(String token){
+        return token.replace("Bearer ", "");
     }
 
 }

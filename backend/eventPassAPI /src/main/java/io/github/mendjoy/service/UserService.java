@@ -71,7 +71,7 @@ public class UserService {
 
     @Transactional
     public void updatePassword(String token, UserPasswordChangeDTO passwordChangeDTO){
-        String username = jwtService.getUsername(token.replace("Bearer ", ""));
+        String username = jwtService.getUsername(token);
 
         User user = userRepository.findByUsername(username);
 
@@ -91,7 +91,7 @@ public class UserService {
 
 
     public UserProfileDTO getDetailsUser(String token){
-        String username = jwtService.getUsername(token.replace("Bearer ", ""));
+        String username = jwtService.getUsername(token);
         User user = userRepository.findByUsername(username);
 
         if(user != null){
@@ -107,7 +107,7 @@ public class UserService {
 
     @Transactional
     public void deleteUser(String token){
-        String username = jwtService.getUsername(token.replace("Bearer ", ""));
+        String username = jwtService.getUsername(token);
 
         User user = userRepository.findByUsername(username);
 
