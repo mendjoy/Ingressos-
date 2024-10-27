@@ -36,7 +36,7 @@ const RegisterEvent = () => {
                 bannerUrl
             }
 
-            const data = await postData(`/events`, eventRegister)
+            const data = await postData(`/event/register`, eventRegister)
 
             if(data.error){
                 setErrorMessage(error.message)
