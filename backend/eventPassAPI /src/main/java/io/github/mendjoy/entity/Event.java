@@ -16,7 +16,7 @@ public class Event {
     private String description;
 
     @Column(name = "event_date")
-    private Date date;
+    private Date eventDate;
 
     @Column(name = "start_time")
     private LocalTime startTime;
@@ -36,10 +36,10 @@ public class Event {
 
     }
 
-    public Event(String name, String description, Date date, LocalTime startTime, LocalTime endTime, String location, Integer capacity, String urlImage) {
+    public Event(String name, String description, Date eventDate, LocalTime startTime, LocalTime endTime, String location, Integer capacity, String urlImage) {
         this.name = name;
         this.description = description;
-        this.date = date;
+        this.eventDate = eventDate;
         this.startTime = startTime;
         this.endTime = endTime;
         this.location = location;
@@ -71,12 +71,12 @@ public class Event {
         this.description = description;
     }
 
-    public Date getDate() {
-        return date;
+    public Date getEventDate() {
+        return eventDate;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setEventDate(Date eventDate) {
+        this.eventDate = eventDate;
     }
 
     public LocalTime getStartTime() {
