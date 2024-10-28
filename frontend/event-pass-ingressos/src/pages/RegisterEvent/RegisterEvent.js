@@ -10,12 +10,12 @@ const RegisterEvent = () => {
 
     const [name, setName] = useState("")
     const [description, setDescription] = useState("")
-    const [eventDate, setEventDate] = useState()
-    const [startTime, setStartTime] = useState()
-    const [endTime, setEndTime] = useState()
-    const [capacity, setCapacity] = useState(0)
+    const [eventDate, setEventDate] = useState(null)
+    const [startTime, setStartTime] = useState(null)
+    const [endTime, setEndTime] = useState(null)
+    const [capacity, setCapacity] = useState(null)
     const [location, setLocation] = useState("")
-    const [bannerUrl, setBannerUrl] = useState()
+    const [urlImage, setUrlImage] = useState()
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -33,15 +33,28 @@ const RegisterEvent = () => {
                 endTime,
                 capacity,
                 location,
-                bannerUrl
+                urlImage
             }
 
             const data = await postData(`/event/register`, eventRegister)
 
             if(data.error){
-                setErrorMessage(error.message)
+                setErrorMessage(data.message)
             }else{
+                setSuccessMessage(data.message)
 
+                setTimeout(() => {
+                    setSuccessMessage("")
+                    setName("")
+                    setDescription("")
+                    setEventDate(null)
+                    setStartTime(null)
+                    setEndTime(null)
+                    setCapacity(null)
+                    setLocation("")
+                    setUrlImage("")
+
+                }, 2000)
             }
 
         } catch (error) {
@@ -121,9 +134,9 @@ const RegisterEvent = () => {
                     <div className="labelInput">
                         <label>Url imagem banner</label>
                         <input type="text"  placeholder="Url Banner" 
-                                            value={bannerUrl}
+                                            value={urlImage}
                                             onChange={ (e) => {
-                                                setBannerUrl(e.target.value)
+                                                setUrlImage(e.target.value)
                                                 setErrorMessage("")
                                          }} />                  
                     </div>
