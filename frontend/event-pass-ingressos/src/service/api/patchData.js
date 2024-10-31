@@ -4,7 +4,7 @@ const patchData = async (url, body) => {
 
         const token = localStorage.getItem("token")
 
-        const response = await fetch(url, {
+        const response = await fetch("http://localhost:8080" + url, {
             method: "PATCH",
             headers: {
                 'Content-Type' : 'application/json',

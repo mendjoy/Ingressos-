@@ -12,7 +12,7 @@ const postData = async (url, body) => {
             }
         }
 
-        const response = await fetch(url, {
+        const response = await fetch("http://localhost:8080" + url, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
