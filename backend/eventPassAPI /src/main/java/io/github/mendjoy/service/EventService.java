@@ -6,8 +6,13 @@ import io.github.mendjoy.repository.EventRepository;
 import io.github.mendjoy.repository.UserRepository;
 import io.github.mendjoy.security.jwt.service.JwtService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestHeader;
+
+import java.util.List;
 
 @Service
 public class EventService {
@@ -27,5 +32,10 @@ public class EventService {
                                 eventRegisterDTO.getUrlImage());
 
         eventRepository.save(event);
+    }
+
+    public Page<Event> getEvents(int page){
+        Pageable pageable = PageRequest.of(page, 10);
+        return  eventRepository.findAll(pageable);
     }
 }
