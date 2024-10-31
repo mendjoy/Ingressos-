@@ -1,6 +1,8 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter } from 'next/navigation' 
+
 import patchData from "../../../service/api/patchData"
 
 //components
@@ -13,6 +15,8 @@ const ChangePassword = () => {
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
+
+    const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -35,6 +39,14 @@ const ChangePassword = () => {
                 
                 setErrorMessage("")
                 setSuccessMessage(data.message)
+                
+                setTimeout(() => {
+                    setSuccessMessage("")
+                    setPassword("")
+                    setNewPassword("")
+                    setConfirmNewPassword("")
+                    router.push("/")
+                }, 2000)
             }
            
         } catch (error) {

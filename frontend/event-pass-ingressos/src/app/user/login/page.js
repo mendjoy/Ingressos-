@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from 'next/navigation' 
 
 //components
 import ErrorMessage   from "../../../components/ErrorMessage/ErrorMessage"
@@ -21,6 +22,7 @@ const Login = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
     const { login } = useAuth()
+    const router = useRouter()
 
     const handleSubmit = async (e) => {
         e.preventDefault()
@@ -38,8 +40,8 @@ const Login = () => {
                 setErrorMessage(data.message)
 
             }else{
-               login(data.data.username, data.data.token, data.data.admin)
-               // navigate("/")
+                login(data.data.username, data.data.token, data.data.admin)
+                router.push("/")
                 setEmail("")
                 setPassword("")
             }

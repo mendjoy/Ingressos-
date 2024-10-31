@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import Link from "next/link"
+import { useRouter } from 'next/navigation' 
 
 //components
 import ErrorMessage   from "../../../components/ErrorMessage/ErrorMessage"
@@ -9,6 +10,8 @@ import SuccessMessage from "../../../components/SuccessMessage/SuccessMessage"
 
 //context
 import { useAuth } from "../../../context/AuthContext"
+
+import  postData  from "../../../service/api/postData"
 
 const Register = () => {
 
@@ -25,7 +28,7 @@ const Register = () => {
 
     const { login } = useAuth()
 
-    //const navigate = useNavigate()
+    const router = useRouter()
     
 
     const handleSubmit = async (event) => {
@@ -63,7 +66,7 @@ const Register = () => {
                     setPhone("")
                     setPassword("")
                     setConfirmPassword("")
-                   // navigate("/profile")
+                    router.push("/user/profile")
                   }, 2000)
             }
         } catch (error) {

@@ -1,6 +1,7 @@
 "use client"
 
 import { useEffect, useState } from "react"
+import { useRouter } from 'next/navigation' 
 
 //components
 import ErrorMessage   from "../../../components/ErrorMessage/ErrorMessage"
@@ -23,7 +24,7 @@ const Profile = () => {
     const [successMessage, setSuccessMessage] = useState('')
     const [errorMessage, setErrorMessage] = useState('')
 
-    //const navigate = useNavigate()
+    const router = useRouter()
     const { logout } = useAuth()
 
     const getUserDetails = async () => {
@@ -76,7 +77,7 @@ const Profile = () => {
                     setEmail("")
                     setBirthDate("")
                     setPhone("")
-                  //  navigate("/")
+                    router.push("/")
                 }, 2000)
             }
         } catch (error) {
@@ -101,7 +102,7 @@ const Profile = () => {
                 setBirthDate("")
                 setPhone("")
                 logout()
-                //navigate("/")
+                router.push("/")
               }, 2000)
           
         } catch (error) {
