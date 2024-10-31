@@ -1,0 +1,126 @@
+/*!***********************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/next/dist/build/webpack/loaders/css-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[2]!./node_modules/next/dist/build/webpack/loaders/postcss-loader/src/index.js??ruleSet[1].rules[13].oneOf[5].use[3]!./src/components/Navbar/Navbar.module.css ***!
+  \***********************************************************************************************************************************************************************************************************************************************************************************/
+.Navbar_navbarContainer__wt3PZ{
+    box-shadow: 2px 1px 10px 1px rgba(0, 0, 0, 0.096);
+    background-color: #F5F5F5;
+    width: 100%;
+    display: flex;
+    flex-direction: row; 
+    justify-content: center;
+    align-items: center; 
+}
+
+.Navbar_navbarContainer__wt3PZ div{
+    justify-content: center;
+    flex: 1 1;
+}
+
+.Navbar_logo__PiZmU {
+    text-decoration: none;
+    font-family: "Bungee Tint", sans-serif; 
+    font-size: 1.2rem; 
+}
+
+.Navbar_logo__PiZmU h1{
+    padding: 15px; 
+    margin: 30px 30px 20px 30px;
+}
+
+.Navbar_navbarLinks__qu8fF{
+   text-align: center;
+}
+
+.Navbar_navbarLinks__qu8fF a, .Navbar_navbarLinks__qu8fF span{
+    text-decoration: none;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 1.2rem;
+    color: #003366;
+    padding: 15px;  
+    background-color: transparent;
+}
+
+.Navbar_navbarLinks__qu8fF a:hover, .Navbar_navbarLinks__qu8fF span:hover, .Navbar_icon__b0Hko:hover, .Navbar_dropdownMenu__5KeSk button:hover {
+   background-color: #cccccc;
+   color: #001F3F;
+   border-radius: 10px;
+   transition: 0.5s;
+}
+
+.Navbar_searchContainer__ib8_3 {
+    border: 1px solid #ccc;
+    border-radius: 15px; 
+    padding: 2px;
+    width: 50%;
+    margin: 0 auto;
+    display: flex;
+    background-color: #ffffff;
+}
+
+.Navbar_searchInput___xn_J{
+    width: 100%;
+    padding: 10px;
+}
+
+.Navbar_searchInput___xn_J, .Navbar_searchButton__oY96w {
+    border: none; 
+    outline: none;
+    background-color: transparent;
+}
+
+.Navbar_searchButton__oY96w{
+    cursor: pointer;
+}
+
+.Navbar_searchIcon__L4K83{
+    color: #000000;
+    font-size: 25px;
+    background-color: transparent;
+    padding: 3px;
+}
+
+.Navbar_dropdown__GsLXV {
+    position: relative;
+    display: inline-block; 
+}
+
+.Navbar_dropdownToggle___4y2Q {
+    cursor: pointer;
+}
+
+.Navbar_dropdownMenu__5KeSk {
+    position: absolute;
+    width: 100%;
+    background-color: white;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000; /* Para que fique acima de outros elementos */
+}
+
+.Navbar_dropdownMenu__5KeSk button, .Navbar_dropdownMenu__5KeSk a{
+   font-weight: 100;
+   font-size: 1em;
+   padding: 8px;
+   color: #003366;
+}
+
+.Navbar_dropdownMenu__5KeSk button{
+    border: none;
+    width: 100%;
+    background-color: transparent;
+}
+
+.Navbar_dropdownItem__GbN_7 {
+    display: block;
+    padding: 5px;
+    text-decoration: none;
+    color: black;
+    align-items: center;
+}
+
+.Navbar_dropdownItem__GbN_7:hover {
+    background-color: #f0f0f0; /* Mudar cor ao passar o mouse */
+}

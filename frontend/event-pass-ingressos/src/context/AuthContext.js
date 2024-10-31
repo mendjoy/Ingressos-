@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+//import { useRouter } from "next/router"
 
 const AuthContext = createContext()
 
@@ -8,8 +8,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(null)
     const [authority, setAuthority] = useState(null)
-
-    const navigate = useNavigate()
+    //const router = useRouter()
 
     const login = (username, authToken, authority) => {
         setUser(username) 
@@ -25,7 +24,7 @@ export const AuthProvider = ({ children }) => {
         setToken(null)
         setAuthority(null)
         localStorage.clear()
-        navigate("/")
+       // router.push("/")
     }
 
     useEffect(() => {
