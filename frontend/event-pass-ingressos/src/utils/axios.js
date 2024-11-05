@@ -1,7 +1,17 @@
 import axios from "axios"
-
-const baseUrl = axios.create({
-    baseURL: "http://localhost:8080"
+        
+const api = axios.create({
+    baseURL:  "http://localhost:8080"
 })
 
-export default baseUrl
+api.interceptors.request.use(function(config){
+    const token = localStorage.getItem('token')
+    if(token !== null){
+        config.headers.Authorization = `Bearer ${token}`
+        return config
+    }else{
+        return config
+    }
+})
+
+export default api
