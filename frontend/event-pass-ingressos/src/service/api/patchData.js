@@ -1,22 +1,16 @@
+import api from "@/utils/axios"
+
 const patchData = async (url, body) => {
 
     try {
 
-        const token = localStorage.getItem("token")
-
-        const response = await fetch("http://localhost:8080" + url, {
-            method: "PATCH",
-            headers: {
-                'Content-Type' : 'application/json',
-                'Authorization': `Bearer ${token}`
-            },
-            body: JSON.stringify(body)
-        })
-
-        return await response.json()
+        const response = await api.patch(url, body)
+        return response.data
         
     } catch (error) {
+
         throw new Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
+    
     }
 }
 

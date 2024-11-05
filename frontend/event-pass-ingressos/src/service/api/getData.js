@@ -1,31 +1,17 @@
+import api from '@/utils/axios'
+
 const getData = async (url) => {
 
     try {
 
-        const token = localStorage.getItem("token")
-        
-        let authHeader = {}
-        
-        if (token !== null) {
-            authHeader = {
-                "Authorization": `Bearer ${token}`,
-            }
-        }
+        const response = await api.get(url)
+        return response.data
     
-        const response = await fetch("http://localhost:8080" + url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "application/json",
-                ...authHeader,
-            }
-        })
-
-        return await response.json()
-        
     } catch (error) {
+      
         throw new Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
-    }
 
+    }
 }
 
 export default getData
