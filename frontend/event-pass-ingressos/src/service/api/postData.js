@@ -8,9 +8,16 @@ const postData = async (url, body) => {
         return response.data
     
     } catch (error) {
-  
-        throw Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
+        
+        if(error.response){
+
+            throw Error(error.response.data.message)
+
+        }else{
+            
+            throw Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
     
+        }
     }
 }
 

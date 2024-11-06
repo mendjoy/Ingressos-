@@ -9,8 +9,15 @@ const patchData = async (url, body) => {
         
     } catch (error) {
 
-        throw new Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
+        if(error.response){
+
+            throw Error(error.response.data.message)
+
+        }else{
+            
+            throw Error("Ocorreu um erro ao processar sua solicitação. Por favor, tente novamente mais tarde.")
     
+        }
     }
 }
 
