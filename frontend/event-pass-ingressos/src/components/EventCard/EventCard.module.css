@@ -1,0 +1,51 @@
+.eventCard{
+    width: 300px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    background-color: #fff;
+    transition: transform 0.3s ease-in-out;
+    cursor: pointer;
+}
+  
+.eventCard:hover{
+    transform: translateY(-5px);
+}
+  
+.eventCardImage{
+    width: 100%;
+    height: 180px;
+    object-fit: cover;
+}
+  
+.eventCardContent{
+    padding: 15px;
+}
+  
+.eventCardTile{
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 10px 0;
+}
+  
+.eventCardDescription{
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+  
+.eventCardDetails{
+    font-size: 0.9rem;
+    color: #333;
+}
+  
+.eventCardDetails p{
+    margin: 5px 0;
+}
+
+.eventCardDetails p span{
+    font-weight: bold;
+}
+  
