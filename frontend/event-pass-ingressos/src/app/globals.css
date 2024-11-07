@@ -145,6 +145,11 @@ form input[readonly]{
     font-weight: bold;
 }
     
+.cardContainer {
+    display: flex;
+    flex-wrap: wrap; 
+    justify-content:center;
+}
 
   
   
