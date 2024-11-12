@@ -3,7 +3,7 @@ package io.github.mendjoy.dto.event;
 import java.time.LocalTime;
 import java.util.Date;
 
-public class EventRegisterDTO {
+public class EventDTO {
 
     private Integer id;
 
@@ -22,11 +22,12 @@ public class EventRegisterDTO {
 
     private String urlImage;
 
-    public EventRegisterDTO() {
+    public EventDTO() {
 
     }
 
-    public EventRegisterDTO(String name, String description, Date eventDate, LocalTime startTime, LocalTime endTime, String location, Integer capacity, String urlImage) {
+    public EventDTO(Integer id, String name, String description, Date eventDate, LocalTime startTime, LocalTime endTime, String location, Integer capacity, String urlImage) {
+        this.id   = id;
         this.name = name;
         this.description = description;
         this.eventDate = eventDate;

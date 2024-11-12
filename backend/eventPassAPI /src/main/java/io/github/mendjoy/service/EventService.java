@@ -38,12 +38,21 @@ public class EventService {
     }
 
     public EventDTO getEventById(int id){
-        EventDTO event = eventRepository.findById(id);
+        Event event = eventRepository.findById(id);
 
         if(event == null){
             throw new EntityNotFoundException("Evento não encontrado!");
         }
 
-        return event;
+        return new EventDTO(event.getId(),
+                            event.getName(),
+                            event.getDescription(),
+                            event.getEventDate(),
+                            event.getStartTime(),
+                            event.getEndTime(),
+                            event.getLocation(),
+                            event.getCapacity(),
+                            event.getUrlImage());
+
     }
 }
