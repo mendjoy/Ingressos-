@@ -47,7 +47,8 @@ const EventDetails = () => {
             {event && (
                 <div>
                     <h1 className={styles.eventTitle}>{event.name}</h1>
-                    {event.urlImage && ( <img src={event.urlImage} alt={event.name} className={styles.eventImage} />)}
+                    {event.urlImage ? ( <img src={event.urlImage} alt={event.name} className={styles.eventImage} />) : 
+                                        <img src="/images/notfound.jpg" alt={event.name} className={styles.eventImage} />}
                     <div className={styles.eventDetail}>
                         <p><span>Descrição:</span> {event.description}</p>
                         <p><span>Data:</span> {new Date(event.eventDate).toLocaleDateString()}</p>
