@@ -38,7 +38,7 @@ public class SecurityConfig {
                     .cors(cors -> cors.configurationSource(corsConfigurationSource))
                     .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                     .authorizeHttpRequests(authorize -> {
-                        authorize.requestMatchers("/user/login", "/user/register", "/event").permitAll();
+                        authorize.requestMatchers("/user/login", "/user/register", "/event", "/event/**").permitAll();
                         authorize.requestMatchers("/event/register").hasRole("ADMIN");
                         authorize.anyRequest().authenticated();
                     })
