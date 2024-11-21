@@ -1,7 +1,7 @@
 package io.github.mendjoy.config;
 
 import io.github.mendjoy.repository.UserRepository;
-import io.github.mendjoy.security.jwt.service.JwtAuthFilter;
+import io.github.mendjoy.security.filter.JwtAuthFilter;
 import io.github.mendjoy.security.jwt.service.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
