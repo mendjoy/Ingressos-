@@ -6,7 +6,6 @@ import io.github.mendjoy.dto.user.UserRegisterDTO;
 import io.github.mendjoy.entity.User;
 import io.github.mendjoy.enums.enums.UserRole;
 import io.github.mendjoy.repository.UserRepository;
-import io.github.mendjoy.security.jwt.service.JwtService;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;

@@ -1,7 +1,7 @@
 package io.github.mendjoy.security.filter;
 
 import io.github.mendjoy.repository.UserRepository;
-import io.github.mendjoy.security.jwt.service.JwtService;
+import io.github.mendjoy.service.JwtService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

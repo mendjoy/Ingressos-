@@ -2,7 +2,9 @@ package io.github.mendjoy.controller;
 
 import io.github.mendjoy.dto.response.ResponseApi;
 import io.github.mendjoy.dto.user.*;
-import io.github.mendjoy.security.jwt.service.JwtService;
+import io.github.mendjoy.service.JwtService;
+import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
@@ -54,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<ResponseApi> login(@Valid @RequestBody UserLoginDTO userLoginDTO){
+    public ResponseEntity<ResponseApi> login(@Valid @RequestBody UserLoginDTO userLoginDTO, HttpServletResponse response){
         UserAuthDTO authResponseDTO = jwtService.authenticate(userLoginDTO.getEmail(), userLoginDTO.getPassword());
         return ResponseEntity.ok(new ResponseApi(HttpStatus.OK, "",false, authResponseDTO));
     }
