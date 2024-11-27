@@ -2,13 +2,12 @@ import React, { useState, useEffect } from "react"
 
 //css
 import  styles from "./Navbar.module.css"
-import Link from 'next/link';
-
+import Link from 'next/link'
 
 //icons
 import { GrHomeRounded } from "react-icons/gr"
 import { BsCalendar4Event } from "react-icons/bs"
-import { IoTicketOutline, IoSearch } from "react-icons/io5"
+import { IoSearch } from "react-icons/io5"
 import { FaRegUser } from "react-icons/fa"
 import { MdOutlineExpandMore } from "react-icons/md"
 import { RiLogoutBoxRLine } from "react-icons/ri"
@@ -60,7 +59,7 @@ const Navbar = () => {
                             {dropdownVisible && (
                                 <div className={styles.dropdownMenu}>
                                     <Link href="/user/profile" className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
-                                    {authority && (<Link href="/event/register" className={styles.dropdownItem} onClick={toggleDropDown}>Cadastrar Evento</Link>)}
+                                    {authority == true && (<Link href="/event/register" className={styles.dropdownItem} onClick={toggleDropDown}>Cadastrar Evento</Link>)}
                                     <Link href="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
                                     <Link href="#" className={styles.dropdownItem} onClick={toggleDropDown}>Favoritos</Link>
                                     <Link href="/user/password" className={styles.dropdownItem} onClick={toggleDropDown}>Alterar Senha</Link>
