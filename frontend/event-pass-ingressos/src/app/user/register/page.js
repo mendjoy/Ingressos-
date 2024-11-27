@@ -75,6 +75,7 @@ const Register = () => {
     }
 
     useEffect(() => {
+
         if(user !== null){
             router.push("/")
         }
@@ -82,7 +83,7 @@ const Register = () => {
 
     return (
         <>
-            {isLoading == false && user !== null && (
+            {isLoading == false && user == null ? (
                 <div className="formContainer">
                     <div>
                         <form onSubmit={handleSubmit}>
@@ -152,7 +153,7 @@ const Register = () => {
                         </form>
                     </div>
                 </div>
-            )}
+            ) : <></>}
         </>
     )
 }

@@ -59,7 +59,7 @@ const Login = () => {
     }, [isLoading])
 
     return (
-        <>{isLoading == false && user !== null && (
+        <>{isLoading == false && user == null ? (
             <div className="formContainer">
                 <div>
                     <form onSubmit={handleSubmit}>
@@ -83,7 +83,7 @@ const Login = () => {
                     </form>
                 </div>
             </div>
-        )}
+        ) : <></>}
     </>   
     )
 }
