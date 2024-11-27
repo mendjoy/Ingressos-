@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { useRouter } from 'next/navigation' 
 
@@ -21,7 +21,7 @@ const Login = () => {
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
-    const { login } = useAuth()
+    const { user, login, isLoading } = useAuth()
     const router = useRouter()
 
     const handleSubmit = async (e) => {
@@ -50,30 +50,41 @@ const Login = () => {
         }
     }
 
+    useEffect(() => {
+
+        if(user !== null){
+            router.push("/")
+        }
+        
+    }, [isLoading])
+
     return (
-        <div className="formContainer">
-            <div>
-                <form onSubmit={handleSubmit}>
-                    {errorMessage   && ( <ErrorMessage message={errorMessage} />) }
-                    {successMessage && ( <SuccessMessage message={successMessage}/> )}
-                    <h2 className="formTitle">Login</h2>
-                    <input type="email"  placeholder="E-mail" 
-                                         value={email}
-                                         onChange={ (e) => {
+        <>{isLoading == false && user !== null && (
+            <div className="formContainer">
+                <div>
+                    <form onSubmit={handleSubmit}>
+                        {errorMessage   && ( <ErrorMessage message={errorMessage} />) }
+                        {successMessage && ( <SuccessMessage message={successMessage}/> )}
+                        <h2 className="formTitle">Login</h2>
+                        <input type="email"  placeholder="E-mail" 
+                                             value={email}
+                                             onChange={ (e) => {
                                                 setEmail(e.target.value)
                                                 setErrorMessage("")
-                                         }} />
-                    <input type="password"  placeholder="Senha"
-                                            value={password}
-                                            onChange={(e) => {
-                                                setPassword(e.target.value)
-                                                setErrorMessage("")
-                                            }} />
-                     <div className="registerLoginDiv">Não possui cadastro? <Link href="/user/register">Cadastrar</Link></div>
-                     <button type="submit" className="blueButton">Entrar</button>
-                </form>
+                                             }} />
+                        <input type="password"  placeholder="Senha"
+                                                value={password}
+                                                onChange={(e) => {
+                                                    setPassword(e.target.value)
+                                                    setErrorMessage("")
+                                                }} />
+                        <div className="registerLoginDiv">Não possui cadastro? <Link href="/user/register">Cadastrar</Link></div>
+                        <button type="submit" className="blueButton">Entrar</button>
+                    </form>
+                </div>
             </div>
-        </div>
+        )}
+    </>   
     )
 }
 
