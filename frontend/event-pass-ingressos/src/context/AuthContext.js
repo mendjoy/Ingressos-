@@ -7,6 +7,7 @@ export const AuthProvider = ({ children }) => {
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(null)
     const [authority, setAuthority] = useState(null)
+    const [isLoading, setIsLoading] = useState(true)
 
     const login = (username, authToken, authority) => {
         setUser(username) 
@@ -34,10 +35,13 @@ export const AuthProvider = ({ children }) => {
             setToken(storedToken)
             setAuthority(storedAuthority)
         }
+
+        setIsLoading(false)
+
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, token, authority, login, logout }}>
+        <AuthContext.Provider value={{ user, token, authority, login, logout, isLoading }}>
             {children} 
         </AuthContext.Provider>
     )
