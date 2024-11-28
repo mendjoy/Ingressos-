@@ -1,13 +1,13 @@
 "use client"
 
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import getData from "@/service/api/getData";
-import styles from './page.module.css';
+import { useEffect, useState } from "react"
+import { useParams, useRouter } from "next/navigation"
+import getData from "@/service/api/getData"
+import styles from './page.module.css'
 
 // components
-import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage";
-import SuccessMessage from "../../../components/SuccessMessage/SuccessMessage";
+import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage"
+import SuccessMessage from "../../../components/SuccessMessage/SuccessMessage"
 
 const EventDetails = () => {
 
@@ -16,29 +16,35 @@ const EventDetails = () => {
     const [errorMessage, setErrorMessage] = useState("")
 
     const param = useParams()
-
+    const router = useRouter()
+    
     const findById = async () => {
 
-    try {
-        const data = await getData(`/event/${param.id}`)
+        try {
 
-        if (data.error) {
-            setErrorMessage(data.message)
-        } else {
-            setEvent(data.data)
+            const data = await getData(`/event/${param.id}`)
+
+            if (data.error) {
+
+                setErrorMessage(data.message)
+
+            } else {
+
+                setEvent(data.data)
+
+            }
+        } catch (error) {
+
+        setErrorMessage(error.message)
+
         }
-    } catch (error) {
-
-      setErrorMessage(error.message)
-
     }
-  }
 
-  useEffect(() => {
+    useEffect(() => {
 
-    findById()
+        findById()
 
-  }, [param])
+    }, [param])
 
     return (
         <div className={styles.container}>
@@ -54,7 +60,7 @@ const EventDetails = () => {
                         <p><span>Data:</span> {new Date(event.eventDate).toLocaleDateString()}</p>
                         <p><span>Horário:</span> {event.startTime} - {event.endTime}</p>
                         <p><span>Local:</span> {event.location}</p>
-                        <button className="blueButton">Obter Ingressos</button>
+                        <button className="blueButton" onClick={() => { router.push(`/event/ticket/${event.id}`)}}>Obter Ingressos</button>
                     </div>
                 </div>
             )}
