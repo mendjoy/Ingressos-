@@ -1,6 +1,7 @@
 package io.github.mendjoy.exception;
 
 import io.github.mendjoy.dto.response.ResponseApi;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,6 +36,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(AccessDeniedException.class)
     public ResponseEntity<ResponseApi> handleAccessDeniedException(AccessDeniedException exception){
         ResponseApi responseApi = new ResponseApi(HttpStatus.FORBIDDEN, exception.getMessage(), true);
+        return new ResponseEntity<>(responseApi, responseApi.getStatus());
+    }
+
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<ResponseApi> handleEntityNotFoundException(EntityNotFoundException exception){
+        ResponseApi responseApi = new ResponseApi(HttpStatus.NOT_FOUND, exception.getMessage(), true);
         return new ResponseEntity<>(responseApi, responseApi.getStatus());
     }
 }
