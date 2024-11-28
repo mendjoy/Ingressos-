@@ -37,4 +37,9 @@ public class EventController {
         return ResponseEntity.status(responseApi.getStatus()).body(responseApi);
     }
 
+    @GetMapping("/search")
+    public Page<Event> searchEvents(@RequestParam String name, @RequestParam(defaultValue = "0") int page) {
+        return eventService.searchEventsByName(name, page);
+    }
+
 }

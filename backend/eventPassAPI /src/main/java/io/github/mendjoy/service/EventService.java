@@ -58,4 +58,9 @@ public class EventService {
                             event.getUrlImage());
 
     }
+
+    public Page<Event> searchEventsByName(String name, int page){
+        Pageable pageable = PageRequest.of(page, 10);
+        return eventRepository.findByNameContainingIgnoreCase(name, pageable);
+    }
 }
