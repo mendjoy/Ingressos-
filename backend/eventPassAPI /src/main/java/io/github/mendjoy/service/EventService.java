@@ -10,7 +10,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import java.lang.module.FindException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Service
 public class EventService {
@@ -34,7 +35,8 @@ public class EventService {
 
     public Page<Event> getEvents(int page){
         Pageable pageable = PageRequest.of(page, 10);
-        return  eventRepository.findAll(pageable);
+        LocalDateTime currentDate = LocalDate.now().atStartOfDay();
+        return eventRepository.findByEventDateGreaterThanEqual(currentDate, pageable);
     }
 
     public EventDTO getEventById(int id){
