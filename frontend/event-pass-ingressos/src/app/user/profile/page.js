@@ -21,11 +21,11 @@ const Profile = () => {
     const [username, setUsername] = useState("")
     const [birthDate, setBirthDate] = useState("")
     const [phone, setPhone] = useState("")
-    const [successMessage, setSuccessMessage] = useState('')
-    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const router = useRouter()
-    const { logout } = useAuth()
+    const { user, logout, isLoading } = useAuth()
 
     const getUserDetails = async () => {
 
@@ -111,64 +111,71 @@ const Profile = () => {
     }
 
     useEffect(() => {
-        getUserDetails()
-    }, [])
+
+        if(user !== null){
+            getUserDetails()
+        }else{
+            router.push("/")
+        }
+        
+    }, [isLoading])
+
+    useEffect(() => {
+
+    })
 
     return (
-        <div className="formContainer">            
-            <form>
+        <> {isLoading == false && user !== null ? (
+            <div className="formContainer">            
+                <form>
 
-                {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-                {successMessage && ( <SuccessMessage message={successMessage}/> )}
+                    {errorMessage && ( <ErrorMessage message={errorMessage} />) }
+                    {successMessage && ( <SuccessMessage message={successMessage}/> )}
 
-                <h2 className="formTitle">Dados da Conta</h2>
-                <div className="labelInput">
-                    <label htmlFor="name">Nome</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        value={name}
-                        onChange={(e) => { setName(e.target.value) }}/>
-                </div>
-                <div className="labelInput">
-                    <label htmlFor="name">Nome de Usuario</label>
-                    <input 
-                        type="text" 
-                        id="name" 
-                        readOnly
-                        defaultValue={username}/>
-                </div>
-                <div className="labelInput">
-                    <label htmlFor="birthDate">Data de Nascimento</label>
-                    <input 
-                        type="date" 
-                        id="birthDate"
-                        readOnly
-                        defaultValue={birthDate}/>
-                </div>
-                <div className="labelInput">
-                    <label htmlFor="email">Email</label>
-                    <input 
-                        type="email" 
-                        id="email" 
-                        readOnly
-                        defaultValue={email}/>
-                </div>
-                <div className="labelInput">
-                    <label htmlFor="phone">Telefone</label>
-                    <input 
-                        type="tel" 
-                        mask="(99) 99999-9999"
-                        id="phone"  
-                        value={phone}
-                        onChange={(e) => { setPhone(e.target.value) }}/>
-                </div>
-                <div className="btContainer">
-                    <button className="blueButton" onClick={handleSubmit}>Salvar Dados</button>
-                    <button className="redButton"  onClick={deleteAccount}>Excluir Conta</button>
-                </div>
-            </form>
-        </div>
+                    <h2 className="formTitle">Dados da Conta</h2>
+                    <div className="labelInput">
+                        <label htmlFor="name">Nome</label>
+                        <input type="text" 
+                               id="name" 
+                               value={name}
+                               onChange={(e) => { setName(e.target.value) }}/>
+                    </div>
+                    <div className="labelInput">
+                        <label htmlFor="name">Nome de Usuario</label>
+                        <input type="text" 
+                               id="name" 
+                               readOnly
+                               value={username}/>
+                    </div>
+                    <div className="labelInput">
+                        <label htmlFor="birthDate">Data de Nascimento</label>
+                        <input type="date" 
+                               id="birthDate"
+                               readOnly
+                               value={birthDate}/>
+                    </div>
+                    <div className="labelInput">
+                        <label htmlFor="email">Email</label>
+                        <input type="email" 
+                               id="email" 
+                               readOnly
+                               value={email}/>
+                    </div>
+                    <div className="labelInput">
+                        <label htmlFor="phone">Telefone</label>
+                        <input type="tel" 
+                               id="phone"  
+                               value={phone}
+                               onChange={(e) => { setPhone(e.target.value) }}/>
+                    </div>
+                    <div className="btContainer">
+                        <button className="blueButton" onClick={handleSubmit}>Salvar Dados</button>
+                        <button className="redButton"  onClick={deleteAccount}>Excluir Conta</button>
+                    </div>
+                </form>
+            </div>
+            ) : <></>}
+        </>
     )
 }
 
