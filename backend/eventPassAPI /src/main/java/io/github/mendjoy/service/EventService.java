@@ -40,7 +40,8 @@ public class EventService {
     }
 
     public EventDTO getEventById(int id){
-        Event event = eventRepository.findById(id);
+        LocalDateTime currentDate = LocalDate.now().atStartOfDay();
+        Event event = eventRepository.findByIdAndEventDateGreaterThanEqual(id, currentDate);
 
         if(event == null){
             throw new EntityNotFoundException("Evento não encontrado!");
