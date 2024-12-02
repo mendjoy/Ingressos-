@@ -15,13 +15,44 @@ import { RiLogoutBoxRLine } from "react-icons/ri"
 //context
 import { useAuth } from "../../context/AuthContext"
 
+//api
+import getData from "@/service/api/getData"
+import { useSearch } from "@/context/SearchContext"
+
 const Navbar = () => {
 
     const { user, authority, logout } = useAuth()
+    const { setSearchResults, setTotalPagesResult } = useSearch()
     const [dropdownVisible, setDropdownVisible] = useState(false)
+    const [searchParam, setSearchParam] = useState("")
 
     const toggleDropDown = () => {
         setDropdownVisible(!dropdownVisible)
+    }
+
+    const getEventByName = async (e) => {
+
+        e.preventDefault()
+
+        try {
+            
+            const data = await getData(`/event/search?name=${searchParam}`)
+
+            if(data.error){
+                
+                setErrorMessage(data.message)
+                
+            }else{
+
+                setSearchResults(data.content)
+                setTotalPagesResult(data.totalPages)
+                
+            }
+
+        } catch (error) {
+
+            setErrorMessage(error.message)
+        }
     }
 
     useEffect(() => {
@@ -37,11 +68,13 @@ const Navbar = () => {
             </div>
 
             <div>
-                <form  className={styles.form}>
+                <form  className={styles.form} onSubmit={getEventByName}>
                     <div className={styles.searchContainer}>
                         <input type="text" 
                                placeholder="Buscar por eventos" 
-                              className={styles.searchInput}/>
+                               className={styles.searchInput}
+                               value={searchParam}
+                               onChange={(e) => setSearchParam(e.target.value)}/>
 
                         <button type="submit" className={styles.searchButton}><IoSearch className={styles.searchIcon}/></button>
                     </div>
