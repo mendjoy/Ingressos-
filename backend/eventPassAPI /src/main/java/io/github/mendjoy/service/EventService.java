@@ -19,6 +19,10 @@ public class EventService {
     @Autowired
     private EventRepository eventRepository;
 
+    private LocalDateTime getCurrentDate(){
+        return LocalDate.now().atStartOfDay();
+    }
+
     public void save(EventDTO eventDTO){
         System.out.println(eventDTO.toString());
         Event event = new Event(eventDTO.getName(),
@@ -35,13 +39,11 @@ public class EventService {
 
     public Page<Event> getEvents(int page){
         Pageable pageable = PageRequest.of(page, 10);
-        LocalDateTime currentDate = LocalDate.now().atStartOfDay();
-        return eventRepository.findByEventDateGreaterThanEqual(currentDate, pageable);
+        return eventRepository.findByEventDateGreaterThanEqual(getCurrentDate(), pageable);
     }
 
     public EventDTO getEventById(int id){
-        LocalDateTime currentDate = LocalDate.now().atStartOfDay();
-        Event event = eventRepository.findByIdAndEventDateGreaterThanEqual(id, currentDate);
+        Event event = eventRepository.findByIdAndEventDateGreaterThanEqual(id, getCurrentDate());
 
         if(event == null){
             throw new EntityNotFoundException("Evento não encontrado!");
@@ -61,6 +63,7 @@ public class EventService {
 
     public Page<Event> searchEventsByName(String name, int page){
         Pageable pageable = PageRequest.of(page, 10);
-        return eventRepository.findByNameContainingIgnoreCase(name, pageable);
+        return eventRepository.findByNameContainingIgnoreCaseAndEventDateGreaterThanEqual(name, getCurrentDate(), pageable);
     }
+
 }
