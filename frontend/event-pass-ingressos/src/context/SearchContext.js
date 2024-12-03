@@ -6,7 +6,7 @@ export const SearchProvider = ( { children }) => {
 
     const [searchResults, setSearchResults] = useState([])
     const [currentPageResult, setCurrentPageResult] = useState(0)
-    const [totalPagesResult,  setTotalPagesResult] = useState(0)
+    const [totalPagesResult,  setTotalPagesResult] = useState(1)
 
     return(
         <SearchContext.Provider value={{ searchResults, setSearchResults, currentPageResult, setCurrentPageResult, totalPagesResult, setTotalPagesResult }}>
