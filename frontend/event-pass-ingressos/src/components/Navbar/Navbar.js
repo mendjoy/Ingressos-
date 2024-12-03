@@ -25,6 +25,8 @@ const Navbar = () => {
     const { setSearchResults, setTotalPagesResult } = useSearch()
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const [searchParam, setSearchParam] = useState("")
+    const [successMessage, setSuccessMessage] = useState("")
+    const [errorMessage, setErrorMessage] = useState("")
 
     const toggleDropDown = () => {
         setDropdownVisible(!dropdownVisible)
@@ -46,6 +48,7 @@ const Navbar = () => {
 
                 setSearchResults(data.content)
                 setTotalPagesResult(data.totalPages)
+                setCurrentPageResult(0)
                 
             }
 
@@ -94,7 +97,6 @@ const Navbar = () => {
                                     <Link href="/user/profile" className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
                                     {authority == true && (<Link href="/event/register" className={styles.dropdownItem} onClick={toggleDropDown}>Cadastrar Evento</Link>)}
                                     <Link href="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
-                                    <Link href="#" className={styles.dropdownItem} onClick={toggleDropDown}>Favoritos</Link>
                                     <Link href="/user/password" className={styles.dropdownItem} onClick={toggleDropDown}>Alterar Senha</Link>
                                     <button onClick={ logout } className={styles.dropdownItem}> <RiLogoutBoxRLine /> Sair</button>
                                 </div>
