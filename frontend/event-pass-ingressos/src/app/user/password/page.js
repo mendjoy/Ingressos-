@@ -1,6 +1,6 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from 'next/navigation' 
 
 import patchData from "../../../service/api/patchData"
@@ -9,12 +9,17 @@ import patchData from "../../../service/api/patchData"
 import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage"
 import SuccessMessage from "../../../components/SuccessMessage/SuccessMessage"
 
+//context
+import { useAuth } from "@/context/AuthContext"
+
 const ChangePassword = () => {
+
     const [password, setPassword] = useState("")
     const [newPassword, setNewPassword] = useState("")
     const [confirmNewPassword, setConfirmNewPassword] = useState("")
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
+    const { user, isLoading } = useAuth()
 
     const router = useRouter()
 
@@ -54,31 +59,41 @@ const ChangePassword = () => {
             setErrorMessage(error.message)
         }
     }
+
+    useEffect(() => {
+
+        if(user == null){
+            router.push("/")
+        }
+
+    }, [isLoading])
     
     return (
-        <div className="formContainer">
-            <div>
-                <form onSubmit={handleSubmit}>
+        <>{isLoading == false && user != null ? 
+            <div className="formContainer">
+                <div>
+                    <form onSubmit={handleSubmit}>
 
-                    {errorMessage && ( <ErrorMessage message={errorMessage} />) }
-                    {successMessage && ( <SuccessMessage message={successMessage}/> )}
+                        {errorMessage && ( <ErrorMessage message={errorMessage} />) }
+                        {successMessage && ( <SuccessMessage message={successMessage}/> )}
 
-                    <h2 className="formTitle">Alterar Senha</h2>
-                    <input type="password"  placeholder="Senha Atual"
-                           value={password}
-                           onChange={(e) => setPassword(e.target.value)}/>
+                        <h2 className="formTitle">Alterar Senha</h2>
+                        <input type="password"  placeholder="Senha Atual"
+                               value={password}
+                               onChange={(e) => setPassword(e.target.value)}/>
 
-                    <input type="password"  placeholder="Nova Senha"
-                           value={newPassword}
-                           onChange={(e) => setNewPassword(e.target.value)}/>
-                    <input type="password"  placeholder="Confirmação Nova Senha"
-                           value={confirmNewPassword}
-                           onChange={(e) => setConfirmNewPassword(e.target.value)}/>
-                    <button type="submit" className="blueButton">Salvar</button>
-                </form>
-            </div>
-            
-        </div>
+                        <input type="password"  placeholder="Nova Senha"
+                               value={newPassword}
+                               onChange={(e) => setNewPassword(e.target.value)}/>
+                        <input type="password"  placeholder="Confirmação Nova Senha"
+                               value={confirmNewPassword}
+                               onChange={(e) => setConfirmNewPassword(e.target.value)}/>
+                        <button type="submit" className="blueButton">Salvar</button>
+                    </form>
+                </div>
+            </div> : <></>
+        }</>
+        
     )
 }
 
