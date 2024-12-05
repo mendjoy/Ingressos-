@@ -21,7 +21,7 @@ import { useSearch } from "@/context/SearchContext"
 
 const Navbar = () => {
 
-    const { user, authority, logout } = useAuth()
+    const { user, authority, isLoading, logout } = useAuth()
     const { setSearchResults, setTotalPagesResult } = useSearch()
     const [dropdownVisible, setDropdownVisible] = useState(false)
     const [searchParam, setSearchParam] = useState("")
@@ -60,7 +60,7 @@ const Navbar = () => {
 
     useEffect(() => {
         setDropdownVisible(false)
-    }, [user])
+    }, [user, isLoading])
 
     return (
         <div className={styles.navbarContainer}>
@@ -95,7 +95,7 @@ const Navbar = () => {
                             {dropdownVisible && (
                                 <div className={styles.dropdownMenu}>
                                     <Link href="/user/profile" className={styles.dropdownItem} onClick={toggleDropDown}>Minha Conta</Link>
-                                    {authority == true && (<Link href="/event/register" className={styles.dropdownItem} onClick={toggleDropDown}>Cadastrar Evento</Link>)}
+                                    { isLoading == false && authority == true && (<Link href="/event/register" className={styles.dropdownItem} onClick={toggleDropDown}>Cadastrar Evento</Link>)}
                                     <Link href="#" className={styles.dropdownItem} onClick={toggleDropDown}>Meus Ingressos</Link>
                                     <Link href="/user/password" className={styles.dropdownItem} onClick={toggleDropDown}>Alterar Senha</Link>
                                     <button onClick={ logout } className={styles.dropdownItem}> <RiLogoutBoxRLine /> Sair</button>
