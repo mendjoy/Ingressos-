@@ -6,7 +6,7 @@ export const AuthProvider = ({ children }) => {
     
     const [user, setUser] = useState(null)
     const [token, setToken] = useState(null)
-    const [authority, setAuthority] = useState(null)
+    const [authority, setAuthority] = useState(false)
     const [isLoading, setIsLoading] = useState(true)
 
     const login = (username, authToken, authority) => {
@@ -25,6 +25,10 @@ export const AuthProvider = ({ children }) => {
         sessionStorage.clear()
     }
 
+    const convertBoolean = (string) => {
+        return string == "true" ? true : false 
+    }
+
     useEffect(() => {
         const storedUser  = sessionStorage.getItem("username")
         const storedToken = sessionStorage.getItem("token")
@@ -33,7 +37,7 @@ export const AuthProvider = ({ children }) => {
         if(storedUser && storedToken && storedAuthority){
             setUser(storedUser)
             setToken(storedToken)
-            setAuthority(storedAuthority)
+            setAuthority(convertBoolean(storedAuthority))
         }
 
         setIsLoading(false)
