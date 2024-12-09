@@ -8,6 +8,9 @@ import ErrorMessage from "../../../components/ErrorMessage/ErrorMessage"
 
 import postData from "../../../service/api/postData"
 
+//api
+import getData from "@/service/api/getData"
+
 const RegisterEvent = () => {
 
     const [name, setName] = useState("")
@@ -18,6 +21,7 @@ const RegisterEvent = () => {
     const [capacity, setCapacity] = useState(null)
     const [location, setLocation] = useState("")
     const [urlImage, setUrlImage] = useState()
+    const [ticketType, setTicketType] = useState()
     const [successMessage, setSuccessMessage] = useState("")
     const [errorMessage, setErrorMessage] = useState("")
 
@@ -63,6 +67,26 @@ const RegisterEvent = () => {
             setErrorMessage(error.message)
         }
     }
+
+    const getTickets = async () => {
+
+        try {
+
+          const result = await getData("/tickets")
+
+          setTicketType(result.data)
+          
+
+        } catch (error) {
+
+          setErrorMessage(error.message)
+        }
+      }
+
+    useState(() => {
+
+        getTickets()
+    }, [])
 
     return (
         <div className="formContainer">
@@ -144,6 +168,10 @@ const RegisterEvent = () => {
                     </div>
                     <button type="submit" className="blueButton">Cadastrar</button>
                 </form>
+            </div>
+            <div className="ticketsSection">
+                <h2>Ingressos</h2>
+               
             </div>
         </div>
     )
