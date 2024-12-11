@@ -23,8 +23,8 @@ public class EventService {
         return LocalDate.now().atStartOfDay();
     }
 
-    public void save(EventDTO eventDTO){
-        System.out.println(eventDTO.toString());
+    public EventDTO save(EventDTO eventDTO){
+
         Event event = new Event(eventDTO.getName(),
                                 eventDTO.getDescription(),
                                 eventDTO.getEventDate(),
@@ -34,7 +34,18 @@ public class EventService {
                                 eventDTO.getCapacity(),
                                 eventDTO.getUrlImage());
 
-        eventRepository.save(event);
+        Event savedEvent = eventRepository.save(event);
+
+        return new EventDTO(savedEvent.getId(),
+                            savedEvent.getName(),
+                            savedEvent.getDescription(),
+                            savedEvent.getEventDate(),
+                            savedEvent.getStartTime(),
+                            savedEvent.getEndTime(),
+                            savedEvent.getLocation(),
+                            savedEvent.getCapacity(),
+                            savedEvent.getUrlImage()
+        );
     }
 
     public Page<Event> getEvents(int page){

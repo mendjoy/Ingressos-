@@ -32,8 +32,8 @@ public class EventController {
 
     @PostMapping("/register")
     public ResponseEntity<ResponseApi> createEvent(@RequestBody EventDTO eventDTO){
-        eventService.save(eventDTO);
-        ResponseApi responseApi = new ResponseApi(HttpStatus.CREATED, "Evento cadastrado com sucesso!", false, eventDTO);
+        EventDTO savedEvent =  eventService.save(eventDTO);
+        ResponseApi responseApi = new ResponseApi(HttpStatus.CREATED, "Evento cadastrado com sucesso!", false, savedEvent);
         return ResponseEntity.status(responseApi.getStatus()).body(responseApi);
     }
 
