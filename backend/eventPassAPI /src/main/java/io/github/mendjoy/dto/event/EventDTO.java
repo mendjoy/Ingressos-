@@ -6,20 +6,13 @@ import java.util.Date;
 public class EventDTO {
 
     private Integer id;
-
     private String name;
     private String description;
-
     private Date eventDate;
-
     private LocalTime startTime;
-
     private LocalTime endTime;
-
     private String location;
-
     private Integer capacity;
-
     private String urlImage;
 
     public EventDTO() {
