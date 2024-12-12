@@ -27,11 +27,15 @@
     background-color: #f5f5f5;
 }
   
-.formTitle{
+.formTitle, .sectionTitle{
     text-align: center;
     margin-bottom: 20px;
     font-size: 2rem;
     color: #003366;
+}
+
+.sectionTitle{
+    margin-bottom: 45px;
 }
   
 form{
@@ -41,13 +45,18 @@ form{
     width: 500px;  
 }
   
-form input, form textarea{
+input, textarea, select{
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 15px;
     outline: none;
     font-size: 1rem;
     background-color: white;
+}
+
+.noResize{
+    resize: none; 
+    overflow: auto;
 }
   
 .labelInput{
@@ -81,8 +90,30 @@ form input[readonly]{
     margin-top: 20px; 
     gap: 10px;    
 }
+
+.deleteButton{
+    color: red;
+    font-size: 2rem;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.deleteButton:hover{
+    color: #86222c;
+}
+
+.greenButton{
+    padding: 10px;
+    color: white;
+    border: none;
+    border-radius: 15px;
+    font-size: 1rem;
+    cursor: pointer;
+    font-weight: bold;
+}
   
-.blueButton,.redButton { 
+.blueButton,.redButton{ 
     padding: 10px;
     color: white;
     border: none;
@@ -92,13 +123,20 @@ form input[readonly]{
     font-weight: bold;
     width: 100%;
 }
-  
+
 .blueButton{
     background-color: #003366;
 }
   
 .redButton{
     background-color: #ff0000;
+}
+
+.greenButton{
+    background-color: #1f8537;
+}
+.greenButton:hover{
+    background-color: #155724;
 }
   
 .blueButton:hover{
@@ -150,6 +188,28 @@ form input[readonly]{
     flex-wrap: wrap; 
     justify-content:center;
 }
-
   
+.formAndTickets {
+    display: flex;
+    gap: 20px; 
+    justify-content: space-between;
+}
+  
+.ticketsSection {
+    flex: 1; 
+    border-left: 1px solid #ddd; 
+    padding-left: 20px;
+}
+
+.ticketsSection input {
+    width: 150px;
+}
+  
+.ticketRow {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+  
+
   
