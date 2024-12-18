@@ -32,34 +32,54 @@ const RegisterEvent = () => {
 
         try {
 
-        const eventRegister = {
-            name,
-            description,
-            eventDate,
-            startTime,
-            endTime,
-            capacity,
-            location,
-            urlImage,
+            const eventRegister = {
+                name,
+                description,
+                eventDate,
+                startTime,
+                endTime,
+                capacity,
+                location,
+                urlImage,
+            }
+
+            const eventResult = await postData(`/event/register`, eventRegister)
+
+            if (eventResult.error) {
+
+                setErrorMessage(eventResult.message)
+                return
+
+            }
+
+            const eventId = eventResult.data.id
+
+            const ticketsData = tickets.map(ticket => {
+                if(ticket.ticketTypeId !== 0 && ticket.price !== 0 && ticket.quantity !== 0){
+                    return {
+                        eventId: eventId,
+                        ticketTypeId: ticket.ticketTypeId,
+                        price: ticket.price,
+                        availableQuantity: ticket.quantity
+                    }
+                }
+            })
+
+            const ticketsResult = await postData("event/ticket", ticketsData)
+
+            if (ticketsResult.error) {
+
+                setErrorMessage(ticketsResult.message)
+
+            }
+
+            resetForm()
+
+        } catch (error) {
+
+            setErrorMessage(error.message)
+
         }
-
-        const eventResult = await postData(`/event/register`, eventRegister)
-
-        if (eventResult.error) {
-            setErrorMessage(eventResult.message)
-        }
-
-        resetForm()
-
-    } catch (error) {
-
-        setErrorMessage(error.message)
-
-    }
-  }
-
-    const registerTicketsEvent = () => {
-
     }
 
     const resetForm = () => {
