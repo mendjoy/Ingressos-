@@ -1,7 +1,7 @@
 package io.github.mendjoy.repository;
 
-import io.github.mendjoy.entity.EventTicketType;
+import io.github.mendjoy.entity.EventTicket;
 import org.springframework.data.jpa.repository.JpaRepository;
 
-public interface EventTicketTypeRepository extends JpaRepository<EventTicketType, Integer> {
+public interface EventTicketRepository extends JpaRepository<EventTicket, Integer> {
 }

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "event_ticket_types")
-public class EventTicketType {
+public class EventTicket {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,7 +21,15 @@ public class EventTicketType {
     @Column(name = "available_quantity")
     private Integer availableQuantity;
 
-    public EventTicketType() {
+    public EventTicket() {
+    }
+
+    public EventTicket(Integer id, Integer eventId, Integer ticketTypeId, Double price, Integer availableQuantity) {
+        this.id = id;
+        this.eventId = eventId;
+        this.ticketTypeId = ticketTypeId;
+        this.price = price;
+        this.availableQuantity = availableQuantity;
     }
 
     public Integer getId() {
