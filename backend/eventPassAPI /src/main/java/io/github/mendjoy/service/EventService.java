@@ -2,7 +2,9 @@ package io.github.mendjoy.service;
 
 import io.github.mendjoy.dto.event.EventDTO;
 import io.github.mendjoy.entity.Event;
+import io.github.mendjoy.entity.EventTicket;
 import io.github.mendjoy.repository.EventRepository;
+import io.github.mendjoy.repository.EventTicketRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,12 +14,16 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class EventService {
 
     @Autowired
     private EventRepository eventRepository;
+
+    @Autowired
+    private EventTicketRepository eventTicketRepository;
 
     private LocalDateTime getCurrentDate(){
         return LocalDate.now().atStartOfDay();
@@ -36,6 +42,8 @@ public class EventService {
 
         Event savedEvent = eventRepository.save(event);
 
+        List<EventTicket> eventTickets = eventTicketRepository.findByEventId(savedEvent.getId());
+        
         return new EventDTO(savedEvent.getId(),
                             savedEvent.getName(),
                             savedEvent.getDescription(),
@@ -44,7 +52,8 @@ public class EventService {
                             savedEvent.getEndTime(),
                             savedEvent.getLocation(),
                             savedEvent.getCapacity(),
-                            savedEvent.getUrlImage()
+                            savedEvent.getUrlImage(),
+                            eventTickets
         );
     }
 
@@ -60,6 +69,7 @@ public class EventService {
             throw new EntityNotFoundException("Evento não encontrado!");
         }
 
+        List<EventTicket> eventTickets = eventTicketRepository.findByEventId(event.getId());
         return new EventDTO(event.getId(),
                             event.getName(),
                             event.getDescription(),
@@ -68,7 +78,8 @@ public class EventService {
                             event.getEndTime(),
                             event.getLocation(),
                             event.getCapacity(),
-                            event.getUrlImage());
+                            event.getUrlImage(),
+                            eventTickets);
 
     }
 

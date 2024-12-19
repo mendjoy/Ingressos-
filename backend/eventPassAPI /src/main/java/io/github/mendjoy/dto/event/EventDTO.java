@@ -1,7 +1,11 @@
 package io.github.mendjoy.dto.event;
 
+import io.github.mendjoy.entity.EventTicket;
+import jakarta.persistence.OneToMany;
+
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 public class EventDTO {
 
@@ -15,12 +19,15 @@ public class EventDTO {
     private Integer capacity;
     private String urlImage;
 
+    @OneToMany(mappedBy = "eventId")
+    private List<EventTicket> eventTickets;
+
     public EventDTO() {
 
     }
 
-    public EventDTO(Integer id, String name, String description, Date eventDate, LocalTime startTime, LocalTime endTime, String location, Integer capacity, String urlImage) {
-        this.id   = id;
+    public EventDTO(Integer id, String name, String description, Date eventDate, LocalTime startTime, LocalTime endTime, String location, Integer capacity, String urlImage, List<EventTicket> eventTickets) {
+        this.id = id;
         this.name = name;
         this.description = description;
         this.eventDate = eventDate;
@@ -29,6 +36,7 @@ public class EventDTO {
         this.location = location;
         this.capacity = capacity;
         this.urlImage = urlImage;
+        this.eventTickets = eventTickets;
     }
 
     public Integer getId() {
@@ -103,4 +111,11 @@ public class EventDTO {
         this.urlImage = urlImage;
     }
 
+    public List<EventTicket> getEventTickets() {
+        return eventTickets;
+    }
+
+    public void setEventTickets(List<EventTicket> eventTickets) {
+        this.eventTickets = eventTickets;
+    }
 }
