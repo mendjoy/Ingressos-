@@ -15,6 +15,24 @@ public class EventTicketService {
     @Autowired
     private EventTicketRepository eventTicketRepository;
 
+    public void saveEventTicket(Integer eventId, List<EventTicketDTO> eventTicketDTOS) {
+
+        if (eventId == null) {
+            throw new IllegalArgumentException("O ID do evento não pode ser nulo.");
+        }
+
+        List<EventTicket> tickets = eventTicketDTOS.stream()
+                .map(dto -> new EventTicket(
+                        eventId,
+                        dto.getTicketTypeId(),
+                        dto.getPrice(),
+                        dto.getAvailableQuantity()
+                ))
+                .collect(Collectors.toList());
+
+        eventTicketRepository.saveAll(tickets);
+    }
+
     public List<EventTicketDTO> getEventTicketsByEventId(Integer id){
         List<EventTicket> eventTickets = eventTicketRepository.findByEventId(id);
 
