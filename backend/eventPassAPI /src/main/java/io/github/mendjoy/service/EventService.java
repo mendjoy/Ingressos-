@@ -1,8 +1,8 @@
 package io.github.mendjoy.service;
 
 import io.github.mendjoy.dto.event.EventDTO;
+import io.github.mendjoy.dto.event.EventTicketDTO;
 import io.github.mendjoy.entity.Event;
-import io.github.mendjoy.entity.EventTicket;
 import io.github.mendjoy.repository.EventRepository;
 import io.github.mendjoy.repository.EventTicketRepository;
 import jakarta.persistence.EntityNotFoundException;
@@ -23,13 +23,20 @@ public class EventService {
     private EventRepository eventRepository;
 
     @Autowired
-    private EventTicketRepository eventTicketRepository;
+    private EventTicketService eventTicketService;
+
+    @Autowired
+    EventTicketRepository eventTicketRepository;
 
     private LocalDateTime getCurrentDate(){
         return LocalDate.now().atStartOfDay();
     }
 
-    public EventDTO save(EventDTO eventDTO){
+    public EventDTO save(EventDTO eventDTO, List<EventTicketDTO> eventTicketDTOs){
+
+        if(eventTicketDTOs.isEmpty()){
+            throw new IllegalArgumentException("Necessário cadastrar pelo menos um tipo de ingresso para o evento!");
+        }
 
         Event event = new Event(eventDTO.getName(),
                                 eventDTO.getDescription(),
@@ -42,19 +49,10 @@ public class EventService {
 
         Event savedEvent = eventRepository.save(event);
 
-        List<EventTicket> eventTickets = eventTicketRepository.findByEventId(savedEvent.getId());
-        
-        return new EventDTO(savedEvent.getId(),
-                            savedEvent.getName(),
-                            savedEvent.getDescription(),
-                            savedEvent.getEventDate(),
-                            savedEvent.getStartTime(),
-                            savedEvent.getEndTime(),
-                            savedEvent.getLocation(),
-                            savedEvent.getCapacity(),
-                            savedEvent.getUrlImage(),
-                            eventTickets
-        );
+        eventTicketService.saveEventTicket(savedEvent.getId(), eventTicketDTOs);
+
+       return  mapEventToDTO(savedEvent);
+
     }
 
     public Page<Event> getEvents(int page){
@@ -69,7 +67,16 @@ public class EventService {
             throw new EntityNotFoundException("Evento não encontrado!");
         }
 
-        List<EventTicket> eventTickets = eventTicketRepository.findByEventId(event.getId());
+       return mapEventToDTO(event);
+
+    }
+
+    public Page<Event> searchEventsByName(String name, int page){
+        Pageable pageable = PageRequest.of(page, 10);
+        return eventRepository.findByNameContainingIgnoreCaseAndEventDateGreaterThanEqual(name, getCurrentDate(), pageable);
+    }
+
+    private EventDTO mapEventToDTO(Event event){
         return new EventDTO(event.getId(),
                             event.getName(),
                             event.getDescription(),
@@ -79,13 +86,6 @@ public class EventService {
                             event.getLocation(),
                             event.getCapacity(),
                             event.getUrlImage(),
-                            eventTickets);
-
+                            eventTicketService.getEventTicketsByEventId(event.getId()));
     }
-
-    public Page<Event> searchEventsByName(String name, int page){
-        Pageable pageable = PageRequest.of(page, 10);
-        return eventRepository.findByNameContainingIgnoreCaseAndEventDateGreaterThanEqual(name, getCurrentDate(), pageable);
-    }
-
 }

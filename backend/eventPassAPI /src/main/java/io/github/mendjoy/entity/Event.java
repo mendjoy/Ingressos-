@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Event {
@@ -31,6 +32,8 @@ public class Event {
     @Column(name = "banner_url")
     private String urlImage;
 
+    @OneToMany
+    private List<TicketType> ticketTypes;
 
     public Event() {
 

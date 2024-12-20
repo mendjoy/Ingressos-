@@ -24,8 +24,7 @@ public class EventTicket {
     public EventTicket() {
     }
 
-    public EventTicket(Integer id, Integer eventId, Integer ticketTypeId, Double price, Integer availableQuantity) {
-        this.id = id;
+    public EventTicket(Integer eventId, Integer ticketTypeId, Double price, Integer availableQuantity) {
         this.eventId = eventId;
         this.ticketTypeId = ticketTypeId;
         this.price = price;
